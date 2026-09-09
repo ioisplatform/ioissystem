@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="hi" class="h-full bg-slate-100">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IOIS PDF Cover Replacer & Header/Footer Editor</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- pdf-lib for PDF manipulation -->
+    <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+    <!-- PDF.js for rendering live preview -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Hind:wght@400;500;600;700&family=Inter:wght@400;600;700&display=swap');
+        body { font-family: 'Hind', 'Inter', sans-serif; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen text-slate-800 antialiased">
+
+    <!-- Top Navigation Header -->
+    <header class="bg-gradient-to-r from-blue-950 via-blue-900 to-indigo-950 text-white shadow-xl border-b-4 border-amber-400 sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap justify-between items-center gap-4">
+            <div class="flex items-center space-x-3.5">
+                <div class="w-11 h-11 bg-amber-400 text-blue-950 rounded-xl flex items-center justify-center font-black text-2xl shadow-lg ring-2 ring-amber-300/50">
+                    <i class="fa-solid fa-book-bookmark"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-extrabold tracking-wide text-white leading-tight flex items-center gap-2">
+                        IOIS INDIAN PUBLICATIONS
+                        <span class="text-xs font-normal bg-amber-400/20 text-amber-300 border border-amber-400/30 px-2 py-0.5 rounded-full">Pro PDF Suite</span>
+                    </h1>
+                    <p class="text-xs text-blue-200">डिजिटल वर्क्बुक, कवर पेज रिप्लेसर एवं हेडर/फुटर ब्रांडिंग एडिटर</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-3">
+                <span class="hidden md:inline-flex items-center gap-1.5 bg-blue-900/80 text-amber-300 text-xs px-3 py-1.5 rounded-lg border border-blue-700/60 font-semibold shadow-inner">
+                    <i class="fa-solid fa-layer-group text-amber-400"></i> IOIS Platform V2.5
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Toast Notification Container (Replaces alert) -->
+    <div id="toastContainer" class="fixed top-5 right-5 z-50 flex flex-col gap-2 max-w-sm w-full pointer-events-none"></div>
+
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+        
+        <!-- Quick Guidance Banner -->
+        <div class="bg-gradient-to-r from-amber-50 to-amber-100/60 border-l-4 border-amber-500 p-4 rounded-r-xl shadow-sm border border-amber-200/80">
+            <div class="flex items-start gap-3.5">
+                <div class="p-2 bg-amber-500 text-white rounded-lg shadow-sm flex-shrink-0 mt-0.5">
+                    <i class="fa-solid fa-wand-magic-sparkles text-lg"></i>
+                </div>
+                <div class="text-sm text-slate-800">
+                    <p class="font-bold text-amber-950 mb-0.5">निर्देश व प्रक्रिया:</p>
+                    <p class="text-xs text-amber-900 leading-relaxed">
+                        1. अपनी पुस्तक या वर्कबुक की मूल PDF अपलोड करें।<br>
+                        2. नया कवर पेज (JPG/PNG) चुनें (यह मूल PDF के प्रथम पेज को बदल देगा)।<br>
+                        3. हेडर में <strong>IOIS INDIAN PUBLICATIONS</strong> और फुटर में <strong>IOIS PLATFORM Plans</strong> का मैटर भरें एवं <strong>"PDF प्रोसेस करें"</strong> पर क्लिक करें।
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            <!-- Left Panel: Settings & Uploads (5 Cols) -->
+            <div class="lg:col-span-5 bg-white p-6 rounded-2xl shadow-sm border border-slate-200/80 space-y-6">
+                
+                <div class="border-b border-slate-100 pb-3 flex justify-between items-center">
+                    <h2 class="text-base font-bold text-blue-950 flex items-center gap-2">
+                        <i class="fa-solid fa-sliders text-amber-500"></i> फ़ाइल एवं हेडर/फुटर सेटिंग्स
+                    </h2>
+                    <span class="text-xs font-semibold text-slate-400">Step 1 of 2</span>
+                </div>
+
+                <!-- Input Files Group -->
+                <div class="space-y-4">
+                    <!-- Cover Image Input -->
+                    <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200 hover:border-blue-300 transition-colors">
+                        <label class="block text-xs font-bold text-slate-800 mb-1 flex items-center justify-between">
+                            <span><i class="fa-solid fa-image text-blue-600 mr-1.5"></i>1. नया कवर पेज (Image JPG/PNG)</span>
+                            <span class="text-[10px] text-amber-600 font-semibold bg-amber-100 px-1.5 py-0.5 rounded">Page 1 Replacement</span>
+                        </label>
+                        <input type="file" id="coverImageInput" accept="image/jpeg,image/png" class="w-full text-xs text-slate-600 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700 cursor-pointer">
+                        <p class="text-[11px] text-slate-600 mt-1">आपकी पुस्तक (जैसे: बाल विकास) का नया फ्रंट कवर पेज।</p>
+                    </div>
+
+                    <!-- PDF File Input -->
+                    <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200 hover:border-blue-300 transition-colors">
+                        <label class="block text-xs font-bold text-slate-800 mb-1">
+                            <i class="fa-solid fa-file-pdf text-red-600 mr-1.5"></i>2. मूल PDF फाइल (Original PDF File)
+                        </label>
+                        <input type="file" id="pdfFileInput" accept="application/pdf" class="w-full text-xs text-slate-600 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700 cursor-pointer">
+                        <p class="text-[11px] text-slate-600 mt-1">इसका पेज 1 हटाकर नया कवर लगाया जाएगा और बाकी पेजों पर हेडर/फुटर लगेगा।</p>
+                    </div>
+                </div>
+
+                <!-- Header & Footer Content Config -->
+                <div class="space-y-3.5 pt-2 border-t border-slate-100">
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
+                        <i class="fa-solid fa-heading text-indigo-600"></i> हेडर व फुटर टेक्स्ट कॉन्फ़िगरेशन
+                    </h3>
+                    
+                    <!-- Header Title -->
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Header Title (शीर्षक)</label>
+                        <input type="text" id="headerTitle" value="IOIS INDIAN PUBLICATIONS | बाल विकास - डिजिटल वर्कबुक" class="w-full text-xs border border-slate-300 rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all">
+                    </div>
+
+                    <!-- Header Subtitle / Tagline -->
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Header Tagline (सब-टाइटल)</label>
+                        <input type="text" id="headerSubtitle" value="शिक्षकों व विद्यार्थियों के लिए प्रमाणित अध्ययन सामग्री" class="w-full text-xs border border-slate-300 rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all">
+                    </div>
+
+                    <!-- Footer Plans Description -->
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">IOIS Platform Plans (Footer Main Text)</label>
+                        <textarea id="footerText" rows="2" class="w-full text-xs border border-slate-300 rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all">IOIS PLATFORM PLANS: BASIC (वर्कबुक + एक्टिविटी) | GOLD (डिजिटल किट + ऑडियो/वीडियो) | DIAMOND (स्कूल डिजिटल लाइसेंस)</textarea>
+                    </div>
+
+                    <!-- Footer Contact & Helpline -->
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">वेबसाइट / सपोर्ट हेल्पलाइन (Footer Subtext)</label>
+                        <input type="text" id="footerContact" value="Website: www.ioisplatform.com | Helpline: +91 98765 43210 | Support: info@ioisplatform.com" class="w-full text-xs border border-slate-300 rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all">
+                    </div>
+
+                    <!-- Style / Color Preferences -->
+                    <div class="grid grid-cols-2 gap-3 pt-1">
+                        <div>
+                            <label class="block text-[11px] font-semibold text-slate-600 mb-1">Header Theme</label>
+                            <select id="headerTheme" class="w-full text-xs border border-slate-300 rounded-lg p-2 bg-white">
+                                <option value="navy">Navy Blue & Gold</option>
+                                <option value="dark">Dark Slate & Amber</option>
+                                <option value="royal">Royal Blue & White</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-semibold text-slate-600 mb-1">Skip Page 1 Header/Footer?</label>
+                            <select id="skipCover" class="w-full text-xs border border-slate-300 rounded-lg p-2 bg-white">
+                                <option value="yes">हाँ (कवर पेज पर न लगाएं)</option>
+                                <option value="no">नहीं (सभी पेजों पर लगाएं)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Process Action Button -->
+                <button id="processBtn" onclick="processPDF()" class="w-full py-3.5 bg-gradient-to-r from-blue-900 to-indigo-900 hover:from-blue-800 hover:to-indigo-800 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center gap-2 group cursor-pointer">
+                    <i class="fa-solid fa-gear group-hover:rotate-90 transition-transform duration-500 text-amber-400"></i> 
+                    <span>PDF प्रोसेस करें और जनरेट करें</span>
+                </button>
+            </div>
+
+            <!-- Right Panel: Live Preview & Downloads (7 Cols) -->
+            <div class="lg:col-span-7 space-y-6 flex flex-col">
+                
+                <!-- PDF Viewer & Download Card -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-6 flex-1 flex flex-col justify-between">
+                    
+                    <div>
+                        <div class="flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
+                            <h3 class="text-base font-bold text-blue-950 flex items-center gap-2">
+                                <i class="fa-solid fa-eye text-indigo-600"></i> लाइव PDF पूर्वावलोकन (Live Preview)
+                            </h3>
+                            
+                            <!-- Download Button (Hidden initial) -->
+                            <a id="downloadBtn" download="IOIS_Bal_Vikas_Edited.pdf" class="hidden inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg font-bold text-xs shadow-md transition-all animate-bounce">
+                                <i class="fa-solid fa-download"></i> संशोधित PDF डाउनलोड करें
+                            </a>
+                        </div>
+
+                        <!-- Status Loading Overlay -->
+                        <div id="statusBox" class="hidden my-8 p-6 bg-blue-50/80 rounded-xl border border-blue-200 text-center space-y-3">
+                            <div class="inline-block animate-spin rounded-full h-9 w-9 border-3 border-blue-900 border-t-transparent"></div>
+                            <p id="statusMsg" class="text-sm font-semibold text-blue-950">PDF प्रोसेसिंग जारी है... कृपया प्रतीक्षा करें!</p>
+                            <div class="w-full bg-slate-200 rounded-full h-2 max-w-xs mx-auto overflow-hidden">
+                                <div id="progressBar" class="bg-blue-600 h-2 rounded-full w-1/3 transition-all duration-300"></div>
+                            </div>
+                        </div>
+
+                        <!-- Canvas Preview Box -->
+                        <div id="previewContainer" class="bg-slate-900 rounded-xl p-4 min-h-[380px] flex flex-col items-center justify-center relative border border-slate-800">
+                            
+                            <div id="placeholderMsg" class="text-center p-8 text-slate-400 space-y-3">
+                                <i class="fa-solid fa-file-circle-plus text-5xl text-slate-600"></i>
+                                <p class="text-sm font-medium">बाईं तरफ फाइलें चुनें और "PDF प्रोसेस करें" पर क्लिक करें।</p>
+                                <p class="text-xs text-slate-500">जनरेट होने के बाद यहाँ पर हर पेज का लाइव हेडर/फुटर प्रिव्यू दिखेगा।</p>
+                            </div>
+
+                            <canvas id="pdfCanvas" class="hidden max-w-full shadow-2xl rounded bg-white my-auto"></canvas>
+
+                            <!-- Navigation Controls for Preview -->
+                            <div id="previewControls" class="hidden w-full mt-3 flex items-center justify-between bg-slate-800/90 text-white px-4 py-2 rounded-lg border border-slate-700">
+                                <button onclick="changePage(-1)" class="px-3 py-1 bg-slate-700 hover:bg-slate-600 rounded text-xs font-semibold flex items-center gap-1">
+                                    <i class="fa-solid fa-chevron-left"></i> पिछला
+                                </button>
+                                <span id="pageInfo" class="text-xs text-amber-300 font-mono">Page 1 of 1</span>
+                                <button onclick="changePage(1)" class="px-3 py-1 bg-slate-700 hover:bg-slate-600 rounded text-xs font-semibold flex items-center gap-1">
+                                    अगला <i class="fa-solid fa-chevron-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Success Message Banner -->
+                    <div id="resultBox" class="hidden mt-4 bg-emerald-50 border border-emerald-200 p-4 rounded-xl text-emerald-900 flex items-center justify-between gap-4">
+                        <div class="flex items-center gap-3">
+                            <i class="fa-solid fa-circle-check text-emerald-600 text-2xl flex-shrink-0"></i>
+                            <div>
+                                <h4 class="text-sm font-bold">PDF सफलता से तैयार हो गया!</h4>
+                                <p class="text-xs text-emerald-700">पहला पेज हटाकर नया कवर लगा दिया गया है एवं सभी पेजों पर Header/Footer एम्बेड कर दिया गया है।</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- IOIS Platform Plans Summary Cards -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200/80 space-y-3">
+                    <h3 class="text-sm font-bold text-blue-950 flex items-center gap-2 border-b border-slate-100 pb-2">
+                        <i class="fa-solid fa-layer-group text-amber-500"></i> IOIS PLATFORM प्लान्स का विस्तृत विवरण
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                        <!-- BASIC -->
+                        <div class="border rounded-xl p-3 bg-slate-50/80 border-slate-200 hover:border-slate-300 transition-all">
+                            <div class="flex items-center justify-between mb-1.5">
+                                <span class="text-xs font-bold text-slate-800">🥉 BASIC PLAN</span>
+                                <span class="text-[10px] bg-slate-200 text-slate-700 px-1.5 py-0.5 rounded font-bold">Standard</span>
+                            </div>
+                            <ul class="text-[11px] text-slate-600 space-y-1">
+                                <li>• प्रिनटेबल वर्कबुक्स एवं वर्कशीट्स</li>
+                                <li>• दैनिक एक्टिविटी शीट्स</li>
+                                <li>• आधारभूत लर्निंग किट</li>
+                            </ul>
+                        </div>
+                        <!-- GOLD -->
+                        <div class="border rounded-xl p-3 bg-amber-50/60 border-amber-200 hover:border-amber-300 transition-all">
+                            <div class="flex items-center justify-between mb-1.5">
+                                <span class="text-xs font-bold text-amber-800">🥈 GOLD PLAN</span>
+                                <span class="text-[10px] bg-amber-200 text-amber-900 px-1.5 py-0.5 rounded font-bold">Popular</span>
+                            </div>
+                            <ul class="text-[11px] text-slate-700 space-y-1">
+                                <li>• इंटरएक्टिव फन लर्निंग किट</li>
+                                <li>• एनीमेटेड ऑडियो-वीडियो सामग्री</li>
+                                <li>• प्रोग्रेस ट्रैकिंग रिपोर्ट</li>
+                            </ul>
+                        </div>
+                        <!-- DIAMOND -->
+                        <div class="border rounded-xl p-3 bg-blue-50/60 border-blue-200 hover:border-blue-300 transition-all">
+                            <div class="flex items-center justify-between mb-1.5">
+                                <span class="text-xs font-bold text-blue-900">🥇 DIAMOND PLAN</span>
+                                <span class="text-[10px] bg-blue-200 text-blue-900 px-1.5 py-0.5 rounded font-bold">Institutional</span>
+                            </div>
+                            <ul class="text-[11px] text-slate-700 space-y-1">
+                                <li>• सम्पूर्ण स्कूल डिजिटल लाइसेंस</li>
+                                <li>• टीचेर्स एवं पेरेंट्स एनालिटिक्स</li>
+                                <li>• कस्टम ब्रांडिंग वर्क्बुक्स</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Offline Automation Script (PyMuPDF / Python Option) -->
+        <div class="bg-slate-900 text-slate-200 rounded-2xl p-6 shadow-xl border border-slate-800 space-y-4">
+            <div class="flex flex-wrap items-center justify-between gap-4 border-b border-slate-800 pb-3">
+                <div>
+                    <h4 class="text-sm font-bold text-amber-400 flex items-center gap-2">
+                        <i class="fa-brands fa-python text-lg"></i> Python ऑटोमेशन स्क्रिप्ट (PyMuPDF / fitz)
+                    </h4>
+                    <p class="text-xs text-slate-400 mt-0.5">यदि आपके पास 100+ किताबों की बड़ी बल्क फाइलें हैं तो इस पायथन स्क्रिप्ट का प्रयोग करें:</p>
+                </div>
+                <button onclick="copyPythonCode()" class="text-xs bg-slate-800 hover:bg-slate-700 text-amber-300 px-3.5 py-2 rounded-lg border border-slate-700 transition-colors flex items-center gap-1.5 font-semibold cursor-pointer">
+                    <i class="fa-regular fa-copy"></i> स्क्रिप्ट कॉपी करें
+                </button>
+            </div>
+
+            <pre class="text-xs font-mono bg-slate-950 p-4 rounded-xl border border-slate-800/80 overflow-x-auto text-emerald-400 leading-relaxed custom-scrollbar" id="pythonCode">
+import fitz  # PyMuPDF पैकेज संस्थापित करें: pip install pymupdf
+
+def process_iois_workbook(cover_img_path, orig_pdf_path, output_pdf_path):
+    print("IOIS PDF प्रोसेसिंग शुरू हो रही है...")
+    
+    # 1. नया दस्तावेज़ बनाएं
+    final_doc = fitz.open()
+
+    # 2. नया कवर पेज इंसर्ट करें (Page 1)
+    img_doc = fitz.open(cover_img_path)
+    pdf_bytes = img_doc.convert_to_pdf()
+    cover_page_pdf = fitz.open("pdf", pdf_bytes)
+    final_doc.insert_pdf(cover_page_pdf)
+
+    # 3. मूल PDF से पेज 2 से अंतिम पेज तक जोड़ें (पहला पुराना कवर हटाकर)
+    orig_doc = fitz.open(orig_pdf_path)
+    if len(orig_doc) > 1:
+        final_doc.insert_pdf(orig_doc, from_page=1, to_page=len(orig_doc) - 1)
+    else:
+        print("चेतावनी: मूल PDF में केवल 1 पेज था!")
+
+    # 4. हर कंटेंट पेज पर Header और Footer जोड़ें
+    header_title = "IOIS INDIAN PUBLICATIONS | बाल विकास - डिजिटल वर्कबुक"
+    footer_plans = "IOIS PLATFORM PLANS: BASIC (वर्कबुक) | GOLD (डिजिटल किट) | DIAMOND (स्कूल लाइसेंस)"
+    footer_contact = "Website: www.ioisplatform.com | Helpline: +91 98765 43210"
+
+    for page_num in range(1, len(final_doc)): # Cover Page (0) को छोड़कर
+        page = final_doc[page_num]
+        rect = page.rect
+
+        # (A) Header Background Banner (Navy Blue)
+        page.draw_rect(fitz.Rect(0, 0, rect.width, 36), color=None, fill=(0.08, 0.18, 0.36))
+        # Header Text
+        page.insert_text(fitz.Point(20, 22), header_title, fontsize=10, color=(1, 0.84, 0), fontname="helv-bold")
+
+        # (B) Footer Background Banner (Light Gray)
+        page.draw_rect(fitz.Rect(0, rect.height - 36, rect.width, rect.height), color=None, fill=(0.94, 0.95, 0.98))
+        # Top Divider Line
+        page.draw_line(fitz.Point(0, rect.height - 36), fitz.Point(rect.width, rect.height - 36), color=(0.8, 0.85, 0.9), width=1)
+        # Footer Text
+        page.insert_text(fitz.Point(15, rect.height - 22), footer_plans, fontsize=7 fontname="helv-bold", color=(0.1, 0.2, 0.4))
+        page.insert_text(fitz.Point(15, rect.height - 10), footer_contact, fontsize=7, fontname="helv", color=(0.3, 0.3, 0.3))
+
+    # 5. अंतिम PDF सेव करें
+    final_doc.save(output_pdf_path)
+    print(f"सफलतापूर्वक जनरेट हो गया: {output_pdf_path}")
+
+# निष्पादित करें:
+# process_iois_workbook("cover_page.jpg", "bal_vikas_original.pdf", "IOIS_Bal_Vikas_Final.pdf")
+            </pre>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 text-xs py-4 border-t border-slate-800 text-center">
+        <p>© 2026 IOIS Indian Publications & Platform. सर्वाधिकार सुरक्षित।</p>
+    </footer>
+
+    <script>
+        // PDF.js worker setup
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+        // State variables for PDF preview navigation
+        let currentPdfDoc = null;
+        let currentPageNum = 1;
+        let pdfBytesGenerated = null;
+
+        /**
+         * Show custom Toast notification replacing alert()
+         */
+        function showToast(message, type = 'info') {
+            const toastContainer = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            
+            const bgColor = type === 'error' ? 'bg-red-600' : type === 'success' ? 'bg-emerald-600' : 'bg-blue-600';
+            const icon = type === 'error' ? 'fa-circle-xmark' : type === 'success' ? 'fa-circle-check' : 'fa-circle-info';
+
+            toast.className = `${bgColor} text-white px-4 py-3 rounded-xl shadow-xl flex items-center justify-between gap-3 text-xs font-semibold transform transition-all duration-300 translate-y-2 pointer-events-auto`;
+            toast.innerHTML = `
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid ${icon} text-base"></i>
+                    <span>${message}</span>
+                </div>
+                <button onclick="this.parentElement.remove()" class="text-white/80 hover:text-white ml-2">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            `;
+
+            toastContainer.appendChild(toast);
+
+            setTimeout(() => {
+                toast.classList.add('opacity-0', '-translate-y-2');
+                setTimeout(() => toast.remove(), 300);
+            }, 4000);
+        }
+
+        /**
+         * Core PDF Processor using PDF-Lib
+         */
+        async function processPDF() {
+            const coverInput = document.getElementById('coverImageInput');
+            const pdfInput = document.getElementById('pdfFileInput');
+            const statusBox = document.getElementById('statusBox');
+            const statusMsg = document.getElementById('statusMsg');
+            const progressBar = document.getElementById('progressBar');
+            const resultBox = document.getElementById('resultBox');
+            const downloadBtn = document.getElementById('downloadBtn');
+            const placeholderMsg = document.getElementById('placeholderMsg');
+            const pdfCanvas = document.getElementById('pdfCanvas');
+
+            if (!coverInput.files[0] || !pdfInput.files[0]) {
+                showToast('कृपया पहले नया कवर पेज (JPG/PNG) और मूल PDF दोनों फाइलें अपलोड करें!', 'error');
+                return;
+            }
+
+            // UI Reset
+            statusBox.classList.remove('hidden');
+            resultBox.classList.add('hidden');
+            placeholderMsg.classList.add('hidden');
+            downloadBtn.classList.add('hidden');
+            progressBar.style.width = '20%';
+            statusMsg.textContent = 'फाइलें लोड हो रही हैं...';
+
+            try {
+                const coverFile = coverInput.files[0];
+                const pdfFile = pdfInput.files[0];
+
+                const coverArrayBuffer = await coverFile.arrayBuffer();
+                const pdfArrayBuffer = await pdfFile.arrayBuffer();
+
+                progressBar.style.width = '40%';
+                statusMsg.textContent = 'मूल PDF और कवर पेज की प्रोसेसिंग जारी है...';
+
+                const { PDFDocument, rgb, StandardFonts } = PDFLib;
+
+                // Load source PDF
+                const srcPdfDoc = await PDFDocument.load(pdfArrayBuffer);
+                const newPdfDoc = await PDFDocument.create();
+
+                // 1. Embed Cover Image as Page 1 (Replacing original Page 1)
+                let coverImage;
+                if (coverFile.type.includes('png')) {
+                    coverImage = await newPdfDoc.embedPng(coverArrayBuffer);
+                } else {
+                    coverImage = await newPdfDoc.embedJpg(coverArrayBuffer);
+                }
+
+                const coverPage = newPdfDoc.addPage([coverImage.width, coverImage.height]);
+                coverPage.drawImage(coverImage, {
+                    x: 0,
+                    y: 0,
+                    width: coverImage.width,
+                    height: coverImage.height,
+                });
+
+                progressBar.style.width = '60%';
+                statusMsg.textContent = 'पेजों को प्रोसेस किया जा रहा है एवं पुराना पहला पेज हटाया जा रहा है...';
+
+                // 2. Copy Pages 2 to N from original PDF (Skipping original Page 1)
+                const totalPages = srcPdfDoc.getPageCount();
+                
+                if (totalPages > 1) {
+                    const pageIndices = Array.from({ length: totalPages - 1 }, (_, i) => i + 1);
+                    const copiedPages = await newPdfDoc.copyPages(srcPdfDoc, pageIndices);
+
+                    const helveticaBold = await newPdfDoc.embedFont(StandardFonts.HelveticaBold);
+                    const helvetica = await newPdfDoc.embedFont(StandardFonts.Helvetica);
+
+                    const headerTitle = document.getElementById('headerTitle').value;
+                    const headerSubtitle = document.getElementById('headerSubtitle').value;
+                    const footerText = document.getElementById('footerText').value;
+                    const footerContact = document.getElementById('footerContact').value;
+                    const headerTheme = document.getElementById('headerTheme').value;
+
+                    // Choose Header Color Theme
+                    let headerBgColor = rgb(0.08, 0.18, 0.36); // Default Navy
+                    let headerTextColor = rgb(1, 0.84, 0); // Gold
+                    if (headerTheme === 'dark') {
+                        headerBgColor = rgb(0.1, 0.12, 0.15);
+                        headerTextColor = rgb(0.95, 0.7, 0.2);
+                    } else if (headerTheme === 'royal') {
+                        headerBgColor = rgb(0.12, 0.3, 0.7);
+                        headerTextColor = rgb(1, 1, 1);
+                    }
+
+                    // Process Content Pages (Draw Header & Footer)
+                    copiedPages.forEach((page) => {
+                        const { width, height } = page.getSize();
+                        
+                        // Header Bar Background (Top)
+                        page.drawRectangle({
+                            x: 0,
+                            y: height - 38,
+                            width: width,
+                            height: 38,
+                            color: headerBgColor,
+                        });
+
+                        // Header Primary Text
+                        page.drawText(headerTitle.substring(0, 75), {
+                            x: 15,
+                            y: height - 22,
+                            size: 9.5,
+                            font: helveticaBold,
+                            color: headerTextColor,
+                        });
+
+                        // Header Subtitle
+                        if (headerSubtitle) {
+                            page.drawText(headerSubtitle.substring(0, 90), {
+                                x: 15,
+                                y: height - 33,
+                                size: 6.5,
+                                font: helvetica,
+                                color: rgb(0.9, 0.9, 0.9),
+                            });
+                        }
+
+                        // Footer Bar Background (Bottom)
+                        page.drawRectangle({
+                            x: 0,
+                            y: 0,
+                            width: width,
+                            height: 36,
+                            color: rgb(0.94, 0.95, 0.98),
+                        });
+
+                        // Footer Top Divider Line
+                        page.drawLine({
+                            start: { x: 0, y: 36 },
+                            end: { x: width, y: 36 },
+                            thickness: 1,
+                            color: rgb(0.8, 0.85, 0.9),
+                        });
+
+                        // Footer Main Plans Text
+                        page.drawText(footerText.substring(0, 110), {
+                            x: 12,
+                            y: 22,
+                            size: 7,
+                            font: helveticaBold,
+                            color: rgb(0.1, 0.2, 0.4),
+                        });
+
+                        // Footer Contact / Website Info
+                        page.drawText(footerContact.substring(0, 110), {
+                            x: 12,
+                            y: 9,
+                            size: 6.5,
+                            font: helvetica,
+                            color: rgb(0.35, 0.35, 0.35),
+                        });
+
+                        newPdfDoc.addPage(page);
+                    });
+                } else {
+                    showToast('मूल PDF में केवल 1 पेज था, केवल नया कवर ही जोड़ा गया है।', 'info');
+                }
+
+                progressBar.style.width = '90%';
+                statusMsg.textContent = 'नया PDF दस्तावेज़ निर्मित किया जा रहा है...';
+
+                // Save PDF
+                pdfBytesGenerated = await newPdfDoc.save();
+                const blob = new Blob([pdfBytesGenerated], { type: 'application/pdf' });
+                const blobUrl = URL.createObjectURL(blob);
+
+                // Configure Download Button
+                downloadBtn.href = blobUrl;
+                downloadBtn.classList.remove('hidden');
+
+                // Render Live Canvas Preview
+                await renderPdfPreview(pdfBytesGenerated);
+
+                progressBar.style.width = '100%';
+                statusBox.classList.add('hidden');
+                resultBox.classList.remove('hidden');
+
+                showToast('आपकी पुस्तक की PDF सफलतापूर्वक प्रोसेस हो गई है!', 'success');
+
+            } catch (error) {
+                console.error("PDF Process Error:", error);
+                statusBox.classList.add('hidden');
+                showToast('PDF प्रोसेस करने में त्रुटि आई: ' + error.message, 'error');
+            }
+        }
+
+        /**
+         * Render PDF.js Canvas Preview
+         */
+        async function renderPdfPreview(pdfArrayBuffer) {
+            const canvas = document.getElementById('pdfCanvas');
+            const previewControls = document.getElementById('previewControls');
+            
+            currentPdfDoc = await pdfjsLib.getDocument({ data: pdfArrayBuffer }).promise;
+            currentPageNum = 1;
+
+            previewControls.classList.remove('hidden');
+            canvas.classList.remove('hidden');
+
+            renderPage(currentPageNum);
+        }
+
+        async function renderPage(num) {
+            if (!currentPdfDoc) return;
+
+            const page = await currentPdfDoc.getPage(num);
+            const canvas = document.getElementById('pdfCanvas');
+            const ctx = canvas.getContext('2d');
+
+            const viewport = page.getViewport({ scale: 1.2 });
+            canvas.height = viewport.height;
+            canvas.width = viewport.width;
+
+            const renderContext = {
+                canvasContext: ctx,
+                viewport: viewport
+            };
+
+            await page.render(renderContext).promise;
+
+            document.getElementById('pageInfo').textContent = `Page ${num} of ${currentPdfDoc.numPages}`;
+        }
+
+        function changePage(offset) {
+            if (!currentPdfDoc) return;
+            const newNum = currentPageNum + offset;
+            if (newNum >= 1 && newNum <= currentPdfDoc.numPages) {
+                currentPageNum = newNum;
+                renderPage(currentPageNum);
+            }
+        }
+
+        /**
+         * Copy Python Code snippet to Clipboard
+         */
+        function copyPythonCode() {
+            const codeText = document.getElementById('pythonCode').innerText;
+            navigator.clipboard.writeText(codeText).then(() => {
+                showToast('Python कोड सफलता से क्लिपबोर्ड पर कॉपी हो गया!', 'success');
+            }).catch(() => {
+                showToast('कोड कॉपी करने में असमर्थ।', 'error');
+            });
+        }
+    </script>
+</body>
+</html>
