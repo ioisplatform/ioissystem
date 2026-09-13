@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>बाल विकास - Live Animated A & a Practice | IOIS PLATFORM</title>
+  <title>बाल विकास - Real Live Animated A & a | IOIS PLATFORM</title>
   <style>
     * {
       box-sizing: border-box;
@@ -13,7 +13,7 @@
     }
 
     body {
-      background-color: #eef2f5;
+      background-color: #e0f2fe;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -22,29 +22,29 @@
       user-select: none;
     }
 
-    .page-container {
+    .page-card {
       width: 100%;
       max-width: 580px;
       background: #ffffff;
       border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-      border: 3px solid #3b82f6;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
+      border: 4px solid #0284c7;
       overflow: hidden;
       display: flex;
       flex-direction: column;
     }
 
-    /* Header Section */
+    /* Header */
     .header {
-      background: #e0f2fe;
-      padding: 12px;
+      background: linear-gradient(135deg, #bae6fd, #e0f2fe);
+      padding: 14px;
       text-align: center;
-      border-bottom: 2px dashed #0284c7;
+      border-bottom: 3px dashed #0284c7;
     }
 
     .brand-title {
       color: #0369a1;
-      font-size: 22px;
+      font-size: 24px;
       font-weight: 900;
     }
 
@@ -52,474 +52,398 @@
       color: #0284c7;
       font-size: 13px;
       font-weight: 700;
-      margin-top: 2px;
     }
 
-    /* Showcase Top Area */
-    .showcase-top {
-      background: linear-gradient(180deg, #e0f2fe 0%, #ffffff 100%);
-      padding: 15px;
+    /* 3D Showcase Badges */
+    .showcase-badges {
       display: flex;
       justify-content: center;
-      gap: 30px;
+      gap: 25px;
+      padding: 15px;
+      background: #f0f9ff;
     }
 
-    .letter-badge {
+    .badge {
+      width: 80px;
+      height: 80px;
       background: #ffffff;
-      border: 3px solid #3b82f6;
-      border-radius: 16px;
-      width: 85px;
-      height: 85px;
+      border: 3px solid #0284c7;
+      border-radius: 18px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 60px;
+      font-size: 55px;
       font-weight: 900;
-      color: #2563eb;
-      box-shadow: 0 6px 12px rgba(37, 99, 235, 0.15);
+      color: #0284c7;
+      box-shadow: 0 6px 15px rgba(2, 132, 199, 0.2);
     }
 
-    /* Animated Guidance Section */
-    .guide-banner {
-      background: #fffbe2;
-      border-top: 1px solid #fde047;
-      border-bottom: 1px solid #fde047;
+    /* Interactive / Live Canvas Area */
+    .animation-banner {
+      background: #fef08a;
       padding: 8px;
       text-align: center;
+      font-weight: 800;
       font-size: 14px;
-      font-weight: 800;
       color: #854d0e;
+      border-top: 1px solid #fde047;
+      border-bottom: 1px solid #fde047;
     }
 
-    .writing-instructions {
-      display: flex;
-      justify-content: space-around;
-      padding: 12px 10px;
-      background: #fefce8;
-    }
-
-    .instruct-box {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      background: #ffffff;
-      padding: 10px 14px;
-      border-radius: 12px;
-      border: 2px solid #fef08a;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    }
-
-    .instruct-text {
-      font-size: 12px;
-      font-weight: 700;
-      color: #713f12;
-      text-align: left;
-    }
-
-    /* SVG Writing Animation (Real Drawing Effect) */
-    @keyframes drawCapitalA {
-      0% { stroke-dashoffset: 400; }
-      70% { stroke-dashoffset: 0; }
-      100% { stroke-dashoffset: 0; }
-    }
-
-    @keyframes drawSmallA {
-      0% { stroke-dashoffset: 350; }
-      70% { stroke-dashoffset: 0; }
-      100% { stroke-dashoffset: 0; }
-    }
-
-    @keyframes pulseStartPin {
-      0%, 100% { transform: scale(1); opacity: 0.8; }
-      50% { transform: scale(1.4); opacity: 1; }
-    }
-
-    .path-cap-a {
-      stroke-dasharray: 400;
-      stroke-dashoffset: 400;
-      animation: drawCapitalA 3.5s ease-in-out infinite;
-    }
-
-    .path-small-a {
-      stroke-dasharray: 350;
-      stroke-dashoffset: 350;
-      animation: drawSmallA 3.5s ease-in-out infinite;
-    }
-
-    .start-pin {
-      animation: pulseStartPin 1.2s infinite;
-      transform-origin: center;
-    }
-
-    /* Realistic Apple & Alive Ant Showcase */
-    .illustrations-grid {
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      padding: 15px 10px;
-      background: #fafafa;
-    }
-
-    .item-card {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .item-card img {
-      width: 100px;
-      height: 100px;
-      object-fit: contain;
-      filter: drop-shadow(0 6px 12px rgba(0,0,0,0.15));
-      transition: transform 0.3s ease;
-    }
-
-    .item-card img:hover {
-      transform: scale(1.05);
-    }
-
-    .item-label {
-      font-size: 15px;
-      font-weight: 800;
-      color: #dc2626;
-    }
-
-    /* Ant Movement Animation */
-    @keyframes antWiggle {
-      0%, 100% { transform: rotate(0deg); }
-      25% { transform: rotate(-3deg); }
-      75% { transform: rotate(3deg); }
-    }
-
-    .alive-ant {
-      animation: antWiggle 1s infinite ease-in-out;
-      cursor: pointer;
-    }
-
-    /* English 4-Line Notebook Tracing Section */
-    .tracing-container {
-      padding: 12px 15px;
-      background: #ffffff;
-    }
-
-    .canvas-wrapper {
+    .canvas-container {
       position: relative;
       width: 100%;
-      height: 220px;
-      border: 2px solid #cbd5e1;
-      border-radius: 12px;
-      background-color: #ffffff;
-      touch-action: none;
-      overflow: hidden;
-    }
-
-    /* English 4-Line Styling */
-    .four-lines-bg {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-around;
-      padding: 5px 0;
-    }
-
-    .line-group {
-      display: flex;
-      flex-direction: column;
-      height: 90px;
-      justify-content: space-between;
-    }
-
-    .line { width: 100%; height: 2px; }
-    .line.top-red { background-color: #ef4444; }
-    .line.mid-blue { background-color: #3b82f6; }
-    .line.bot-red { background-color: #ef4444; }
-
-    /* Faint Tracing Templates on Lines */
-    .line-templates {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-around;
-      padding: 5px 0;
-    }
-
-    .template-row {
-      height: 90px;
-      display: flex;
-      align-items: center;
-      justify-content: space-around;
-      font-size: 72px;
-      font-weight: 700;
-      color: #cbd5e1;
-      letter-spacing: 10px;
+      height: 250px;
+      background: #ffffff;
+      border-bottom: 2px solid #e2e8f0;
     }
 
     canvas {
-      position: absolute;
-      top: 0;
-      left: 0;
       width: 100%;
       height: 100%;
-      cursor: crosshair;
+      display: block;
     }
 
-    /* Bottom Control Bar */
-    .controls {
+    /* Controls */
+    .control-bar {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 10px 15px;
       background: #f8fafc;
-      border-top: 1px solid #e2e8f0;
     }
 
-    .color-picker {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .color-dot {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
+    .btn-replay {
+      background: #0284c7;
+      color: #ffffff;
+      border: none;
+      padding: 8px 16px;
+      font-weight: 700;
+      font-size: 13px;
+      border-radius: 8px;
       cursor: pointer;
-      border: 2px solid #ffffff;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+      box-shadow: 0 3px 8px rgba(2, 132, 199, 0.3);
     }
 
     .btn-clear {
       background: #ef4444;
       color: #ffffff;
       border: none;
-      padding: 6px 14px;
-      font-size: 13px;
+      padding: 8px 16px;
       font-weight: 700;
-      border-radius: 6px;
+      font-size: 13px;
+      border-radius: 8px;
       cursor: pointer;
     }
   </style>
 </head>
 <body>
 
-  <div class="page-container">
+  <div class="page-card">
     <!-- Header -->
     <div class="header">
       <div class="brand-title">बाल विकास: अध्ययन पुस्तिका</div>
       <div class="brand-subtitle">🌟 IOIS PLATFORM 🌟</div>
     </div>
 
-    <!-- Letter Showcase (3D A and a) -->
-    <div class="showcase-top">
-      <div class="letter-badge">A</div>
-      <div class="letter-badge" style="color: #0284c7; border-color: #0284c7;">a</div>
+    <!-- Badges -->
+    <div class="showcase-badges">
+      <div class="badge">A</div>
+      <div class="badge" style="color: #dc2626; border-color: #dc2626;">a</div>
     </div>
 
-    <!-- Animated Writing Guidance (SVG Writing Stroke Animation) -->
-    <div class="guide-banner">🎬 लाइव एनिमेशन: देखें अक्षर कैसे लिखा जाता है!</div>
-    <div class="writing-instructions">
-      
-      <!-- Real Animated Capital A -->
-      <div class="instruct-box">
-        <svg width="70" height="70" viewBox="0 0 100 100">
-          <!-- Guide Trace Line (Faint Gray) -->
-          <path d="M 20 80 L 50 15 L 80 80 M 32 55 L 68 55" stroke="#cbd5e1" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-          
-          <!-- Animated Writing Path -->
-          <path class="path-cap-a" d="M 20 80 L 50 15 L 80 80 M 32 55 L 68 55" stroke="#2563eb" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-          
-          <!-- Start Indicator Pin -->
-          <circle cx="20" cy="80" r="6" fill="#ef4444" class="start-pin" />
-        </svg>
-        <div class="instruct-text">
-          <b>Capital A:</b><br>
-          1. ↗️ बाएँ से ऊपर<br>
-          2. ↘️ ऊपर से दाएँ<br>
-          3. ➡️ बीच की रेखा
-        </div>
-      </div>
-
-      <!-- Real Animated Small a -->
-      <div class="instruct-box">
-        <svg width="70" height="70" viewBox="0 0 100 100">
-          <!-- Guide Trace Line (Faint Gray) -->
-          <path d="M 70 35 C 30 30 20 75 60 75 C 75 75 75 55 70 35 M 70 35 L 70 80" stroke="#cbd5e1" stroke-width="8" stroke-linecap="round" fill="none"/>
-          
-          <!-- Animated Writing Path -->
-          <path class="path-small-a" d="M 70 35 C 30 30 20 75 60 75 C 75 75 75 55 70 35 M 70 35 L 70 80" stroke="#0284c7" stroke-width="8" stroke-linecap="round" fill="none"/>
-          
-          <!-- Start Indicator Pin -->
-          <circle cx="70" cy="35" r="6" fill="#ef4444" class="start-pin" />
-        </svg>
-        <div class="instruct-text">
-          <b>Small a:</b><br>
-          1. 🔄 गोल घुमाएँ<br>
-          2. ⬇️ सीधी छोटी लाइन
-        </div>
-      </div>
-
+    <!-- Live Animated Guidance Canvas -->
+    <div class="animation-banner">🎬 एनिमेटेड पेंसिल गाइड (लाइव पेंसिल को घूमते हुए देखें):</div>
+    
+    <div class="canvas-container">
+      <canvas id="liveCanvas"></canvas>
     </div>
 
-    <!-- Realistic Apple & Animated Ant -->
-    <div class="illustrations-grid">
-      <div class="item-card">
-        <!-- HD Real Photo Apple -->
-        <img src="https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?w=300&auto=format&fit=crop&q=80" alt="Real Apple">
-        <div class="item-label">A for apple</div>
-      </div>
-      
-      <div class="item-card">
-        <!-- Animated Realistic SVG Ant -->
-        <div class="alive-ant">
-          <svg width="95" height="95" viewBox="0 0 100 100">
-            <!-- Legs -->
-            <path d="M 45 50 Q 30 30 20 35 M 48 55 Q 30 60 22 70 M 50 60 Q 35 80 30 90" stroke="#451a03" stroke-width="3" stroke-linecap="round" fill="none"/>
-            <path d="M 55 50 Q 70 30 80 35 M 52 55 Q 70 60 78 70 M 50 60 Q 65 80 70 90" stroke="#451a03" stroke-width="3" stroke-linecap="round" fill="none"/>
-            <!-- Abdomen -->
-            <ellipse cx="50" cy="72" rx="16" ry="20" fill="#78350f" />
-            <ellipse cx="50" cy="74" rx="12" ry="16" fill="#92400e" />
-            <!-- Thorax -->
-            <ellipse cx="50" cy="48" rx="9" ry="11" fill="#451a03" />
-            <!-- Head -->
-            <circle cx="50" cy="30" r="11" fill="#78350f" />
-            <!-- Eyes -->
-            <circle cx="45" cy="26" r="2.5" fill="#ffffff" />
-            <circle cx="55" cy="26" r="2.5" fill="#ffffff" />
-            <circle cx="45" cy="26" r="1" fill="#000000" />
-            <circle cx="55" cy="26" r="1" fill="#000000" />
-            <!-- Antennae -->
-            <path d="M 46 20 Q 38 8 28 10 M 54 20 Q 62 8 72 10" stroke="#451a03" stroke-width="2" stroke-linecap="round" fill="none"/>
-          </svg>
-        </div>
-        <div class="item-label" style="color: #78350f;">A for ant</div>
-      </div>
-    </div>
-
-    <!-- Tracing Section (English Four Line Notebook) -->
-    <div class="tracing-container">
-      <div class="canvas-wrapper" id="canvasWrapper">
-        <!-- 4-Line Notebook Lines -->
-        <div class="four-lines-bg">
-          <div class="line-group">
-            <div class="line top-red"></div>
-            <div class="line mid-blue"></div>
-            <div class="line mid-blue"></div>
-            <div class="line bot-red"></div>
-          </div>
-          <div class="line-group">
-            <div class="line top-red"></div>
-            <div class="line mid-blue"></div>
-            <div class="line mid-blue"></div>
-            <div class="line bot-red"></div>
-          </div>
-        </div>
-
-        <!-- Tracing Templates -->
-        <div class="line-templates">
-          <div class="template-row">
-            <span>A</span><span>A</span><span>A</span><span>A</span>
-          </div>
-          <div class="template-row">
-            <span>a</span><span>a</span><span>a</span><span>a</span>
-          </div>
-        </div>
-
-        <!-- Canvas -->
-        <canvas id="paintCanvas"></canvas>
-      </div>
-    </div>
-
-    <!-- Controls -->
-    <div class="controls">
-      <div class="color-picker">
-        <span style="font-size: 12px; font-weight: 700; color: #475569;">पेन्सिल रंग:</span>
-        <div class="color-dot" style="background: #ef4444;" onclick="changeColor('#ef4444')"></div>
-        <div class="color-dot" style="background: #2563eb;" onclick="changeColor('#2563eb')"></div>
-        <div class="color-dot" style="background: #16a34a;" onclick="changeColor('#16a34a')"></div>
-        <div class="color-dot" style="background: #09090b;" onclick="changeColor('#09090b')"></div>
-      </div>
-      <button class="btn-clear" onclick="clearCanvas()">🧹 साफ़ करें (Reset)</button>
+    <!-- Control Bar -->
+    <div class="control-bar">
+      <button class="btn-replay" onclick="resetAnimation()">🔄 दोबारा एनिमेशन देखें</button>
+      <button class="btn-clear" onclick="clearUserTrace()">🧹 अपनी ट्रेसिंग साफ़ करें</button>
     </div>
   </div>
 
   <script>
-    const canvas = document.getElementById('paintCanvas');
+    const canvas = document.getElementById('liveCanvas');
     const ctx = canvas.getContext('2d');
-    const wrapper = document.getElementById('canvasWrapper');
 
+    let width, height;
+    let progressA = 0;
+    let progressSmallA = 0;
+    let antPos = { x: 50, y: 190, angle: 0 };
+    let userPaths = [];
     let isDrawing = false;
-    let currentColor = '#2563eb';
+    let currentPath = [];
 
-    function resizeCanvas() {
-      const rect = wrapper.getBoundingClientRect();
-      canvas.width = rect.width;
-      canvas.height = rect.height;
-      ctx.lineWidth = 6;
-      ctx.lineCap = 'round';
-      ctx.lineJoin = 'round';
-      ctx.strokeStyle = currentColor;
+    // Realistic Apple Image
+    const appleImg = new Image();
+    appleImg.src = "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?w=200&auto=format&fit=crop&q=80";
+
+    function resize() {
+      width = canvas.width = canvas.offsetWidth;
+      height = canvas.height = canvas.offsetHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    // Paths for Capital A & Small a
+    function getCapAPoint(t) {
+      // t goes 0 to 1
+      if (t < 0.4) {
+        // Line 1: Up-left to Top
+        let localT = t / 0.4;
+        return { x: 60 + localT * 30, y: 100 - localT * 70 };
+      } else if (t < 0.8) {
+        // Line 2: Top to Down-right
+        let localT = (t - 0.4) / 0.4;
+        return { x: 90 + localT * 30, y: 30 + localT * 70 };
+      } else {
+        // Line 3: Middle Bar
+        let localT = (t - 0.8) / 0.2;
+        return { x: 72 + localT * 36, y: 70 };
+      }
     }
 
-    window.addEventListener('load', resizeCanvas);
-    window.addEventListener('resize', resizeCanvas);
-
-    function changeColor(color) {
-      currentColor = color;
-      ctx.strokeStyle = color;
+    function getSmallAPoint(t) {
+      if (t < 0.7) {
+        // Circle stroke
+        let localT = t / 0.7;
+        let angle = localT * Math.PI * 2;
+        return { x: 230 + Math.cos(angle - Math.PI/2) * 18, y: 72 + Math.sin(angle - Math.PI/2) * 18 };
+      } else {
+        // Right vertical bar
+        let localT = (t - 0.7) / 0.3;
+        return { x: 248, y: 54 + localT * 36 };
+      }
     }
 
-    function clearCanvas() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // Main Animation Loop
+    let animFrame;
+    function animate() {
+      ctx.clearRect(0, 0, width, height);
+
+      // 1. Draw 4-Line English Notebook Background
+      drawNotebookLines();
+
+      // 2. Draw Faint Guide Letters
+      drawFaintTemplates();
+
+      // 3. Draw User Tracing Lines
+      drawUserLines();
+
+      // 4. Animate Pencil Drawing Capital A
+      if (progressA < 1) progressA += 0.005;
+      drawAnimatedStroke(getCapAPoint, progressA, '#0284c7');
+
+      // 5. Animate Pencil Drawing Small a
+      if (progressSmallA < 1) progressSmallA += 0.006;
+      drawAnimatedStroke(getSmallAPoint, progressSmallA, '#dc2626');
+
+      // 6. Draw Real Live Apple
+      if (appleImg.complete) {
+        ctx.drawImage(appleImg, width - 130, 130, 85, 85);
+        ctx.fillStyle = '#dc2626';
+        ctx.font = 'bold 13px sans-serif';
+        ctx.fillText('A for apple', width - 125, 230);
+      }
+
+      // 7. Draw Alive Crawling Ant
+      updateAndDrawAnt();
+
+      animFrame = requestAnimationFrame(animate);
     }
 
-    function getPos(e) {
-      const rect = canvas.getBoundingClientRect();
-      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-      return {
-        x: clientX - rect.left,
-        y: clientY - rect.top
-      };
+    function drawNotebookLines() {
+      // Line group 1 (Capital A)
+      const linesY = [30, 54, 78, 100];
+      linesY.forEach((y, i) => {
+        ctx.beginPath();
+        ctx.moveTo(10, y);
+        ctx.lineTo(width - 150, y);
+        ctx.strokeStyle = (i === 0 || i === 3) ? '#ef4444' : '#3b82f6';
+        ctx.lineWidth = 1.5;
+        ctx.setLineDash((i === 1 || i === 2) ? [4, 4] : []);
+        ctx.stroke();
+        ctx.setLineDash([]);
+      });
+
+      // Line group 2 (Small a row)
+      const linesY2 = [130, 154, 178, 200];
+      linesY2.forEach((y, i) => {
+        ctx.beginPath();
+        ctx.moveTo(10, y);
+        ctx.lineTo(width - 150, y);
+        ctx.strokeStyle = (i === 0 || i === 3) ? '#ef4444' : '#3b82f6';
+        ctx.lineWidth = 1.5;
+        ctx.setLineDash((i === 1 || i === 2) ? [4, 4] : []);
+        ctx.stroke();
+        ctx.setLineDash([]);
+      });
     }
 
-    function startDrawing(e) {
-      isDrawing = true;
-      const pos = getPos(e);
+    function drawFaintTemplates() {
+      ctx.fillStyle = '#e2e8f0';
+      ctx.font = 'bold 70px monospace';
+      ctx.fillText('A', 60, 95);
+      ctx.font = 'bold 50px monospace';
+      ctx.fillText('a', 220, 90);
+    }
+
+    function drawAnimatedStroke(pointFunc, prog, color) {
       ctx.beginPath();
-      ctx.moveTo(pos.x, pos.y);
-    }
+      ctx.lineWidth = 5;
+      ctx.strokeStyle = color;
+      ctx.lineCap = 'round';
 
-    function draw(e) {
-      if (!isDrawing) return;
-      e.preventDefault();
-      const pos = getPos(e);
-      ctx.lineTo(pos.x, pos.y);
+      for (let t = 0; t <= prog; t += 0.01) {
+        let pt = pointFunc(t);
+        if (t === 0) ctx.moveTo(pt.x, pt.y);
+        else ctx.lineTo(pt.x, pt.y);
+      }
       ctx.stroke();
+
+      // Draw Animated Pencil Tip
+      if (prog < 1) {
+        let currentPt = pointFunc(prog);
+        drawPencilTip(currentPt.x, currentPt.y);
+      }
     }
 
-    function stopDrawing() {
-      isDrawing = false;
+    function drawPencilTip(x, y) {
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate(-Math.PI / 4);
+      
+      // Pencil Body
+      ctx.fillStyle = '#f59e0b';
+      ctx.fillRect(0, -5, 30, 10);
+      
+      // Pencil Wood Tip
+      ctx.fillStyle = '#fde047';
+      ctx.beginPath();
+      ctx.moveTo(0, -5);
+      ctx.lineTo(-10, 0);
+      ctx.lineTo(0, 5);
+      ctx.fill();
+
+      // Graphite Lead
+      ctx.fillStyle = '#000000';
+      ctx.beginPath();
+      ctx.moveTo(-6, -3);
+      ctx.lineTo(-10, 0);
+      ctx.lineTo(-6, 3);
+      ctx.fill();
+
+      ctx.restore();
     }
 
-    canvas.addEventListener('mousedown', startDrawing);
-    canvas.addEventListener('mousemove', draw);
-    canvas.addEventListener('mouseup', stopDrawing);
-    canvas.addEventListener('mouseleave', stopDrawing);
+    // Crawling Ant Logic
+    let legWiggle = 0;
+    function updateAndDrawAnt() {
+      legWiggle += 0.2;
+      antPos.x += 0.4;
+      if (antPos.x > width - 160) antPos.x = 20;
 
-    canvas.addEventListener('touchstart', startDrawing);
-    canvas.addEventListener('touchmove', draw);
-    canvas.addEventListener('touchend', stopDrawing);
+      ctx.save();
+      ctx.translate(antPos.x, antPos.y);
+
+      // Legs
+      ctx.strokeStyle = '#451a03';
+      ctx.lineWidth = 2;
+      for (let i = -1; i <= 1; i++) {
+        let offset = Math.sin(legWiggle + i) * 4;
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.lineTo(i * 8, -10 + offset);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.lineTo(i * 8, 10 - offset);
+        ctx.stroke();
+      }
+
+      // Body Parts
+      ctx.fillStyle = '#78350f';
+      ctx.beginPath(); ctx.arc(-12, 0, 8, 0, Math.PI * 2); ctx.fill(); // Back
+      ctx.beginPath(); ctx.arc(0, 0, 5, 0, Math.PI * 2); ctx.fill();  // Mid
+      ctx.beginPath(); ctx.arc(10, 0, 6, 0, Math.PI * 2); ctx.fill(); // Head
+
+      // Eye & Antenna
+      ctx.fillStyle = '#ffffff';
+      ctx.beginPath(); ctx.arc(12, -2, 1.5, 0, Math.PI * 2); ctx.fill();
+      ctx.strokeStyle = '#451a03';
+      ctx.beginPath(); ctx.moveTo(14, -3); ctx.lineTo(20, -8 + Math.sin(legWiggle)*2); ctx.stroke();
+
+      ctx.restore();
+
+      ctx.fillStyle = '#78350f';
+      ctx.font = 'bold 12px sans-serif';
+      ctx.fillText('A for ant', antPos.x - 10, antPos.y + 22);
+    }
+
+    // Drawing Tracing Functionality for User
+    function drawUserLines() {
+      ctx.strokeStyle = '#2563eb';
+      ctx.lineWidth = 5;
+      ctx.lineCap = 'round';
+      userPaths.forEach(path => {
+        ctx.beginPath();
+        path.forEach((pt, i) => {
+          if (i === 0) ctx.moveTo(pt.x, pt.y);
+          else ctx.lineTo(pt.x, pt.y);
+        });
+        ctx.stroke();
+      });
+    }
+
+    canvas.addEventListener('mousedown', (e) => {
+      isDrawing = true;
+      let rect = canvas.getBoundingClientRect();
+      currentPath = [{ x: e.clientX - rect.left, y: e.clientY - rect.top }];
+      userPaths.push(currentPath);
+    });
+
+    canvas.addEventListener('mousemove', (e) => {
+      if (!isDrawing) return;
+      let rect = canvas.getBoundingClientRect();
+      currentPath.push({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+    });
+
+    canvas.addEventListener('mouseup', () => isDrawing = false);
+
+    canvas.addEventListener('touchstart', (e) => {
+      isDrawing = true;
+      let rect = canvas.getBoundingClientRect();
+      let touch = e.touches[0];
+      currentPath = [{ x: touch.clientX - rect.left, y: touch.clientY - rect.top }];
+      userPaths.push(currentPath);
+    });
+
+    canvas.addEventListener('touchmove', (e) => {
+      if (!isDrawing) return;
+      let rect = canvas.getBoundingClientRect();
+      let touch = e.touches[0];
+      currentPath.push({ x: touch.clientX - rect.left, y: touch.clientY - rect.top });
+    });
+
+    canvas.addEventListener('touchend', () => isDrawing = false);
+
+    function resetAnimation() {
+      progressA = 0;
+      progressSmallA = 0;
+    }
+
+    function clearUserTrace() {
+      userPaths = [];
+    }
+
+    appleImg.onload = () => {
+      animate();
+    };
   </script>
 </body>
 </html>
