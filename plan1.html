@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>A for Apple - Pure HTML 3D Animated Video Story</title>
+  <title>A for Apple - Animated Kids Learning Video & Tracing</title>
   <style>
     * {
       box-sizing: border-box;
@@ -13,7 +13,7 @@
     }
 
     body {
-      background: linear-gradient(135deg, #7dd3fc 0%, #0284c7 100%);
+      background: linear-gradient(135deg, #38bdf8 0%, #0369a1 100%);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -24,18 +24,18 @@
 
     .card {
       width: 100%;
-      max-width: 800px;
+      max-width: 850px;
       background: #ffffff;
       border-radius: 24px;
       border: 5px solid #0284c7;
       overflow: hidden;
-      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.35);
       display: flex;
       flex-direction: column;
     }
 
     .header {
-      background: linear-gradient(135deg, #0284c7, #0369a1);
+      background: linear-gradient(135deg, #0284c7, #075985);
       color: #ffffff;
       padding: 14px;
       text-align: center;
@@ -44,27 +44,27 @@
     .title { font-size: 24px; font-weight: 900; }
     .subtitle { font-size: 13px; color: #bae6fd; font-weight: bold; }
 
-    /* Video Dialogue Banner */
+    /* Interactive Ant Dialogue Banner */
     .speech-box {
       background: #fef08a;
       border-bottom: 3px solid #fde047;
       padding: 12px 15px;
       text-align: center;
-      font-size: 17px;
+      font-size: 18px;
       font-weight: 800;
-      color: #854d0e;
-      min-height: 55px;
+      color: #713f12;
+      min-height: 60px;
       display: flex;
       align-items: center;
       justify-content: center;
       line-height: 1.4;
     }
 
-    /* Full Video Canvas Container */
+    /* Video Canvas Area */
     .canvas-container {
       position: relative;
       width: 100%;
-      height: 400px;
+      height: 420px;
       background: #ffffff;
       touch-action: none;
     }
@@ -76,6 +76,7 @@
       cursor: crosshair;
     }
 
+    /* Bottom Control Bar */
     .controls {
       display: flex;
       justify-content: space-between;
@@ -91,7 +92,7 @@
       padding: 12px 24px;
       border: none;
       border-radius: 12px;
-      font-size: 15px;
+      font-size: 16px;
       font-weight: 800;
       cursor: pointer;
       color: #ffffff;
@@ -100,8 +101,8 @@
     }
 
     .btn:active { transform: scale(0.95); }
-    .btn-replay { background: #16a34a; }
-    .btn-replay:hover { background: #15803d; }
+    .btn-play { background: #16a34a; }
+    .btn-play:hover { background: #15803d; }
     .btn-clear { background: #ef4444; }
     .btn-clear:hover { background: #dc2626; }
     
@@ -118,22 +119,25 @@
 
   <div class="card">
     <div class="header">
-      <div class="title">🎬 Live Animated Story: A for Apple</div>
+      <div class="title">🎬 Real Animated Video Story: Learn 'A' & 'Apple'</div>
       <div class="subtitle">🌟 IOIS PLATFORM 🌟</div>
     </div>
 
+    <!-- Ant Voice Dialogue Display -->
     <div class="speech-box" id="speechBox">
-      🐜 चींटी: "नीचे 'प्ले एनिमेशन वीडियो' दबाएं, मैं चलकर आऊंगी और स्टोरी सुनाऊंगी!"
+      🐜 चींटी: "नमस्ते बच्चों! नीचे 'प्ले वीडियो कहानी' बटन दबाएं, मैं आपको A लिखना सिखाऊंगी!"
     </div>
 
+    <!-- Canvas Animation Area -->
     <div class="canvas-container">
       <canvas id="mainCanvas"></canvas>
     </div>
 
+    <!-- Buttons & Instructions -->
     <div class="controls">
-      <button class="btn btn-replay" onclick="startFullVideoScene()">▶️ प्ले एनिमेशन वीडियो</button>
-      <button class="btn btn-clear" onclick="clearUserDrawings()">🧹 अपनी ड्राइंग साफ़ करें</button>
-      <div class="instruction">✍️ आप माउस या उंगली से 4-लाइन कॉपी पर लिखने की प्रैक्टिस कर सकते हैं!</div>
+      <button class="btn btn-play" onclick="startFullVideoScene()">▶️ प्ले वीडियो कहानी</button>
+      <button class="btn btn-clear" onclick="clearUserDrawings()">🧹 ड्राइंग साफ़ करें</button>
+      <div class="instruction">✍️ बच्चे माउस या उंगली से स्क्रीन पर 4-लाइन कॉपी की तरह प्रैक्टिस कर सकते हैं!</div>
     </div>
   </div>
 
@@ -146,9 +150,9 @@
     let tCapA = 0, tSmallA = 0;
     let userPaths = [], currentPath = [], isDrawing = false;
     
-    // Ant Animation Physics Parameters
-    let antPos = { x: -50, y: 320, angle: 0 };
-    let antTarget = { x: 0, y: 0 };
+    // Physics parameters for crawling Ant Video Scene
+    let antPos = { x: 30, y: 340, angle: 0 };
+    let antTarget = { x: 30, y: 340 };
     let antLegAngle = 0;
     let isAntCarryingPiece = false;
     let isAntEating = false;
@@ -156,40 +160,42 @@
     function resizeCanvas() {
       w = canvas.width = canvas.offsetWidth;
       h = canvas.height = canvas.offsetHeight;
-      antPos.x = 20;
-      antPos.y = h - 50;
+      antPos.x = 40;
+      antPos.y = h - 60;
+      antTarget.x = 40;
+      antTarget.y = h - 60;
     }
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
 
-    // 4-Line Notebook Calculations (Top 3 lines for 'A', Middle 2 lines for 'a')
+    // 4-Line Notebook Coordinates (Row 0 for Capital A, Row 1 for Small a)
     function getLineY(row, lineIdx) {
-      const base = row === 0 ? 50 : 210;
-      return base + (lineIdx * 30);
+      const base = row === 0 ? 45 : 210;
+      return base + (lineIdx * 32);
     }
 
-    // 100% ACCURATE 'A' TRACING (Slant Left, Slant Right, Center Crossbar)
+    // PERFECT CAPITAL 'A' PATH (3-STROKES)
     function getCapAPoint(t) {
-      const l1 = getLineY(0, 0); // Line 1 (Top)
-      const l3 = getLineY(0, 2); // Line 3 (Bottom boundary of A)
-      const midY = getLineY(0, 1.2); // Line 2 (Crossbar)
+      const l1 = getLineY(0, 0); // Top Red Line
+      const l3 = getLineY(0, 2); // Bottom Blue Line
+      const midY = getLineY(0, 1.2); // Middle Bar Line
 
       if (t <= 0.4) {
-        // Step 1: Upward Slant (Left to Apex)
+        // Stroke 1: Left Slant Line (Bottom to Top)
         let p = t / 0.4;
         return { x: 45 + 35 * p, y: l3 + (l1 - l3) * p };
       } else if (t <= 0.8) {
-        // Step 2: Downward Slant (Apex to Right)
+        // Stroke 2: Right Slant Line (Top to Bottom)
         let p = (t - 0.4) / 0.4;
         return { x: 80 + 35 * p, y: l1 + (l3 - l1) * p };
       } else {
-        // Step 3: Horizontal Center Bar (Left to Right)
+        // Stroke 3: Sleeping Crossbar Line (Left to Right)
         let p = (t - 0.8) / 0.2;
         return { x: 60 + 40 * p, y: midY };
       }
     }
 
-    // ACCURATE 'a' TRACING (Middle 2 lines)
+    // PERFECT SMALL 'a' PATH (Circle + Standing Line)
     function getSmallAPoint(t) {
       const l2 = getLineY(1, 1);
       const l3 = getLineY(1, 2);
@@ -206,29 +212,29 @@
       }
     }
 
-    // Cute Child/Ant Voice Synthesis
+    // Child-pitched voice speech synthesis
     function speakAntVoice(text, callback) {
       speechBox.innerText = "🐜 चींटी: \"" + text + "\"";
       if ('speechSynthesis' in window) {
         window.speechSynthesis.cancel();
         const msg = new SpeechSynthesisUtterance(text);
         msg.lang = 'hi-IN';
-        msg.rate = 0.95;
+        msg.rate = 0.92;
         msg.pitch = 1.6;
         if (callback) msg.onend = callback;
         window.speechSynthesis.speak(msg);
       } else {
-        if (callback) setTimeout(callback, 2200);
+        if (callback) setTimeout(callback, 2400);
       }
     }
 
-    // 3D Ultra Glossy Apple Graphic
+    // Real Glossy 3D Apple Rendering
     function drawUltraRealisticApple(cx, cy) {
       ctx.save();
-      // Shadow
+      // Drop Shadow
       ctx.beginPath();
       ctx.ellipse(cx, cy + 75, 75, 18, 0, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.25)';
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.22)';
       ctx.fill();
 
       // Stem
@@ -251,7 +257,7 @@
       ctx.fillStyle = leafGrad;
       ctx.fill();
 
-      // Apple Body Base
+      // Apple Body Gradient
       ctx.beginPath();
       ctx.moveTo(cx, cy - 45);
       ctx.bezierCurveTo(cx + 50, cy - 65, cx + 85, cy - 10, cx + 75, cy + 35);
@@ -267,7 +273,7 @@
       ctx.fillStyle = appleGrad;
       ctx.fill();
 
-      // Real Glossy Shine
+      // Glossy Reflection Highlight
       ctx.beginPath();
       ctx.ellipse(cx - 35, cy - 20, 16, 35, Math.PI / 5, 0, Math.PI * 2);
       ctx.fillStyle = 'rgba(255, 255, 255, 0.45)';
@@ -276,7 +282,7 @@
       ctx.restore();
     }
 
-    // Walking / Crawling Animated 3D Ant
+    // 3D Crawling Ant Character
     function drawCrawlingAnt(x, y, angle) {
       ctx.save();
       ctx.translate(x, y);
@@ -293,7 +299,7 @@
       ctx.moveTo(12, 4);  ctx.quadraticCurveTo(20, 14, 25, 12);
       ctx.stroke();
 
-      // Legs
+      // 6 Moving Legs
       ctx.beginPath();
       ctx.moveTo(0, -2); ctx.lineTo(-5 + legOffset, -14);
       ctx.moveTo(-4, -2); ctx.lineTo(-4 - legOffset, -14);
@@ -304,7 +310,7 @@
       ctx.moveTo(-8, 2);  ctx.lineTo(-13 - legOffset, 14);
       ctx.stroke();
 
-      // Body Segments
+      // Ant Body Segments
       // Head
       ctx.beginPath(); ctx.ellipse(10, 0, 6, 5, 0, 0, Math.PI * 2); ctx.fillStyle = '#334155'; ctx.fill();
       // Eye
@@ -314,7 +320,7 @@
       // Abdomen
       ctx.beginPath(); ctx.ellipse(-14, 0, 11, 7, 0, 0, Math.PI * 2); ctx.fillStyle = '#0f172a'; ctx.fill();
 
-      // Carrying/Eating Apple Piece
+      // Piece of Apple carried by Ant
       if (isAntCarryingPiece || isAntEating) {
         ctx.beginPath();
         ctx.arc(18, 0, 5, 0, Math.PI * 2);
@@ -325,6 +331,7 @@
       ctx.restore();
     }
 
+    // Pencil Drawing Component
     function drawPencil(x, y) {
       ctx.save();
       ctx.translate(x, y);
@@ -335,11 +342,11 @@
       ctx.restore();
     }
 
-    // Main Engine Render Loop
+    // Main Canvas Render Loop
     function render() {
       ctx.clearRect(0, 0, w, h);
 
-      // 1. Draw 4-Line Notebook Background
+      // 1. Draw 4-Line Notebook Lines
       for (let r = 0; r < 2; r++) {
         for (let i = 0; i < 4; i++) {
           let y = getLineY(r, i);
@@ -355,11 +362,11 @@
         }
       }
 
-      // 2. Faint Template Guide
+      // 2. Faint Background Letters for Reference
       ctx.fillStyle = '#f1f5f9';
-      ctx.font = '900 85px sans-serif';
+      ctx.font = '900 90px sans-serif';
       ctx.fillText('A', 40, getLineY(0, 2) - 2);
-      ctx.font = '900 55px sans-serif';
+      ctx.font = '900 58px sans-serif';
       ctx.fillText('a', 68, getLineY(1, 2) - 2);
 
       // 3. Automated Pencil Tracing Animation
@@ -374,7 +381,7 @@
       const appleY = 140;
       drawUltraRealisticApple(appleX, appleY);
 
-      // 5. Ant Walking Video Physics Engine
+      // 5. Ant Crawling Physics Update
       let dx = antTarget.x - antPos.x;
       let dy = antTarget.y - antPos.y;
       let dist = Math.sqrt(dx * dx + dy * dy);
@@ -387,7 +394,7 @@
 
       drawCrawlingAnt(antPos.x, antPos.y, antPos.angle);
 
-      // 6. User Practice Traces
+      // 6. User Tracing & Freehand Practice Paths
       ctx.strokeStyle = '#16a34a';
       ctx.lineWidth = 6;
       ctx.lineCap = 'round';
@@ -423,34 +430,35 @@
       }
     }
 
-    // Complete Video Story Sequence
+    // STORY SCENE & TEACHING DIALOGUE PIPELINE
     function startFullVideoScene() {
       tCapA = 0;
       tSmallA = 0;
       isAntCarryingPiece = false;
       isAntEating = false;
 
-      // Ant starts crawling towards center
-      antTarget = { x: 120, y: getLineY(0, 2) + 20 };
+      // Ant walks to letter 'A'
+      antTarget = { x: 130, y: getLineY(0, 2) + 20 };
 
-      speakAntVoice("हेलो बच्चों! मैं छोटी चींटी हूँ! देखो, यह है Capital A और Small a!", () => {
-        // Ant walks towards Apple
-        antTarget = { x: w - 210, y: 190 };
+      speakAntVoice("नमस्ते बच्चों! मैं छोटी चींटी हूँ! चलो आज 'A' लिखना सीखते हैं!", () => {
+        speakAntVoice("देखो पेंसिल को! पहले बाएं तिरछी लाइन, फिर दाएं तिरछी लाइन और बीच में सीधी लाइन! बन गया Capital A!", () => {
+          // Ant walks towards Apple
+          antTarget = { x: w - 210, y: 190 };
 
-        speakAntVoice("A for Apple! Apple का मतलब होता है सेब!", () => {
-          // Ant picks up piece
-          isAntCarryingPiece = true;
+          speakAntVoice("A for Apple! Apple यानी सेब! और A for Ant... Ant यानी मैं चींटी!", () => {
+            // Ant picks apple piece
+            isAntCarryingPiece = true;
 
-          speakAntVoice("अरे वाह! यह सेब तो बहुत मीठा और रसीला है! 🍎", () => {
-            // Ant moves closer and eats
-            isAntEating = true;
-            speakAntVoice("और देखो, मैं चींटी की बच्ची मजे से सेब खा रही हूँ! आप भी मेरे साथ लिखो! 🐜🍎");
+            speakAntVoice("वाह! सेब कितना मीठा और रसीला है! 🍎", () => {
+              isAntEating = true;
+              speakAntVoice("अब आप सब भी स्क्रीन पर अपनी उंगली से 'A' लिखने की प्रैक्टिस करो! 🐜✨");
+            });
           });
         });
       });
     }
 
-    // User Interactive Practice System
+    // FULL USER TRACING & DRAWING ENGINE
     function getEventPos(e) {
       let rect = canvas.getBoundingClientRect();
       let clientX = e.clientX || (e.touches && e.touches[0].clientX);
@@ -481,8 +489,7 @@
 
     function clearUserDrawings() { userPaths = []; }
 
-    // Start Engine Initial Position
-    antTarget = { x: 100, y: 220 };
+    // Start engine loop
     render();
   </script>
 </body>
