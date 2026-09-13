@@ -3,17 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>बाल विकास - A for Apple Worksheet | IOIS PLATFORM</title>
+  <title>बाल विकास - A and a Practice Worksheet | IOIS PLATFORM</title>
   <style>
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      font-family: 'Comic Sans MS', 'Segoe UI', Roboto, sans-serif;
     }
 
     body {
-      background-color: #f0f4f8;
+      background-color: #eef2f5;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -22,13 +22,13 @@
       user-select: none;
     }
 
-    .worksheet-card {
+    .page-container {
       width: 100%;
-      max-width: 550px;
+      max-width: 580px;
       background: #ffffff;
-      border-radius: 20px;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
-      border: 3px solid #fbbf24;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      border: 3px solid #3b82f6;
       overflow: hidden;
       display: flex;
       flex-direction: column;
@@ -36,101 +36,134 @@
 
     /* Header Section */
     .header {
-      background: linear-gradient(135deg, #fffbeb, #fef3c7);
-      padding: 16px;
+      background: #e0f2fe;
+      padding: 12px;
       text-align: center;
-      border-bottom: 2px dashed #f59e0b;
+      border-bottom: 2px dashed #0284c7;
     }
 
     .brand-title {
-      color: #d97706;
-      font-size: 24px;
-      font-weight: 800;
-      letter-spacing: 0.5px;
+      color: #0369a1;
+      font-size: 22px;
+      font-weight: 900;
     }
 
     .brand-subtitle {
-      color: #2563eb;
-      font-size: 14px;
-      font-weight: 700;
-      margin-top: 2px;
-      letter-spacing: 1px;
-    }
-
-    .meta-bar {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 10px;
+      color: #0284c7;
       font-size: 13px;
       font-weight: 700;
-      color: #4b5563;
-      padding: 0 10px;
+      margin-top: 2px;
     }
 
-    /* Showcase Section (3D Letter & Realistic Apple) */
-    .showcase {
+    /* Showcase Top Area (Matching Image Look) */
+    .showcase-top {
+      background: linear-gradient(180deg, #e0f2fe 0%, #ffffff 100%);
+      padding: 15px;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+    }
+
+    .letter-badge {
+      background: #ffffff;
+      border: 3px solid #3b82f6;
+      border-radius: 16px;
+      width: 90px;
+      height: 90px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 65px;
+      font-weight: 900;
+      color: #2563eb;
+      box-shadow: 0 6px 12px rgba(37, 99, 235, 0.15);
+      position: relative;
+    }
+
+    /* Step-by-Step Writing Guide Section */
+    .guide-banner {
+      background: #fffbe2;
+      border-top: 1px solid #fde047;
+      border-bottom: 1px solid #fde047;
+      padding: 8px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 800;
+      color: #854d0e;
+    }
+
+    .writing-instructions {
+      display: flex;
+      justify-content: space-around;
+      padding: 12px 10px;
+      background: #fefce8;
+    }
+
+    .instruct-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #ffffff;
+      padding: 6px 12px;
+      border-radius: 10px;
+      border: 1px solid #fef08a;
+    }
+
+    .instruct-text {
+      font-size: 12px;
+      font-weight: 700;
+      color: #713f12;
+      text-align: left;
+    }
+
+    /* Illustrations Section (Apple & Ant) */
+    .illustrations-grid {
       display: flex;
       justify-content: space-around;
       align-items: center;
-      padding: 20px;
+      padding: 10px;
       background: #fafafa;
     }
 
-    .letter-3d {
-      font-size: 120px;
-      font-weight: 900;
-      background: linear-gradient(180deg, #ef4444 0%, #b91c1c 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      filter: drop-shadow(3px 5px 0px #fecaca);
+    .item-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
     }
 
-    .apple-img {
-      width: 150px;
-      height: 150px;
+    .item-card img {
+      width: 90px;
+      height: 90px;
       object-fit: contain;
-      filter: drop-shadow(0 8px 15px rgba(0,0,0,0.15));
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
     }
 
-    /* Caption Banner */
-    .caption-banner {
-      background: #f0fdf4;
-      border-top: 1px solid #bbf7d0;
-      border-bottom: 1px solid #bbf7d0;
-      text-align: center;
-      padding: 10px;
-      font-size: 20px;
+    .item-label {
+      font-size: 15px;
       font-weight: 800;
-      color: #166534;
+      color: #dc2626;
     }
 
-    /* Tracing Section */
-    .tracing-section {
-      padding: 15px;
+    /* English 4-Line Notebook Tracing Section */
+    .tracing-container {
+      padding: 12px 15px;
       background: #ffffff;
-      text-align: center;
-    }
-
-    .tracing-title {
-      font-size: 14px;
-      color: #6b7280;
-      margin-bottom: 10px;
-      font-weight: 700;
     }
 
     .canvas-wrapper {
       position: relative;
       width: 100%;
       height: 220px;
-      border: 2px dashed #3b82f6;
-      border-radius: 14px;
+      border: 2px solid #cbd5e1;
+      border-radius: 10px;
       background-color: #ffffff;
       touch-action: none;
       overflow: hidden;
     }
 
-    /* Clean Notebook Guide Lines */
-    .guide-lines {
+    /* English 4-Line Styling */
+    .four-lines-bg {
       position: absolute;
       top: 0;
       left: 0;
@@ -139,28 +172,45 @@
       pointer-events: none;
       display: flex;
       flex-direction: column;
-      justify-content: space-evenly;
+      justify-content: space-around;
+      padding: 5px 0;
     }
 
-    .line {
-      width: 100%;
-      height: 1px;
+    .line-group {
+      display: flex;
+      flex-direction: column;
+      height: 90px;
+      justify-content: space-between;
     }
-    .line.red { border-bottom: 2px solid #fca5a5; }
-    .line.blue { border-bottom: 1.5px dashed #93c5fd; }
 
-    /* Trace Template Text */
-    .trace-template {
+    .line { width: 100%; height: 2px; }
+    .line.top-red { background-color: #ef4444; }
+    .line.mid-blue { background-color: #3b82f6; }
+    .line.bot-red { background-color: #ef4444; }
+
+    /* Faint Tracing Templates on Lines */
+    .line-templates {
       position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 140px;
-      font-weight: 900;
-      color: #e5e7eb;
-      letter-spacing: 35px;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       pointer-events: none;
-      font-family: monospace, sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      padding: 5px 0;
+    }
+
+    .template-row {
+      height: 90px;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      font-size: 72px;
+      font-weight: 700;
+      color: #cbd5e1;
+      letter-spacing: 10px;
     }
 
     canvas {
@@ -172,89 +222,131 @@
       cursor: crosshair;
     }
 
-    /* Controls Bar */
+    /* Bottom Control Bar */
     .controls {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 12px 18px;
-      background: #fffbe2;
-      border-top: 1px solid #fef08a;
+      padding: 10px 15px;
+      background: #f8fafc;
+      border-top: 1px solid #e2e8f0;
     }
 
     .color-picker {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
     }
 
     .color-dot {
-      width: 32px;
-      height: 32px;
+      width: 28px;
+      height: 28px;
       border-radius: 50%;
       cursor: pointer;
       border: 2px solid #ffffff;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-      transition: transform 0.1s ease;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.15);
     }
-    .color-dot:active { transform: scale(0.9); }
 
     .btn-clear {
       background: #ef4444;
       color: #ffffff;
       border: none;
-      padding: 8px 16px;
-      font-size: 14px;
+      padding: 6px 14px;
+      font-size: 13px;
       font-weight: 700;
-      border-radius: 8px;
+      border-radius: 6px;
       cursor: pointer;
-      box-shadow: 0 2px 6px rgba(239, 68, 68, 0.3);
     }
-    .btn-clear:active { opacity: 0.9; }
   </style>
 </head>
 <body>
 
-  <div class="worksheet-card">
+  <div class="page-container">
     <!-- Header -->
     <div class="header">
       <div class="brand-title">बाल विकास: अध्ययन पुस्तिका</div>
       <div class="brand-subtitle">🌟 IOIS PLATFORM 🌟</div>
-      <div class="meta-bar">
-        <span>भाग 1: भाषा ज्ञान</span>
-        <span>अध्याय 1: अंग्रेजी वर्णमाला</span>
+    </div>
+
+    <!-- Letter Showcase (3D A and a) -->
+    <div class="showcase-top">
+      <div class="letter-badge">A</div>
+      <div class="letter-badge" style="color: #0284c7; border-color: #0284c7;">a</div>
+    </div>
+
+    <!-- Writing Steps Guidance -->
+    <div class="guide-banner">✍️ लिखने का तरीका (How to write Capital A and Small a):</div>
+    <div class="writing-instructions">
+      <div class="instruct-box">
+        <svg width="35" height="35" viewBox="0 0 100 100">
+          <text x="20" y="80" font-size="75" font-weight="bold" fill="#2563eb">A</text>
+          <path d="M 25 75 L 45 20" stroke="#ef4444" stroke-width="4" marker-end="url(#arrow)" />
+          <path d="M 45 20 L 70 75" stroke="#ef4444" stroke-width="4" />
+          <path d="M 32 50 L 60 50" stroke="#ef4444" stroke-width="4" />
+        </svg>
+        <div class="instruct-text"><b>Big A:</b><br>1. ↙️ तिरछी लाइन<br>2. ↘️ तिरछी लाइन<br>3. ➡️ बीच की लाइन</div>
+      </div>
+
+      <div class="instruct-box">
+        <svg width="35" height="35" viewBox="0 0 100 100">
+          <text x="25" y="80" font-size="75" font-weight="bold" fill="#0284c7">a</text>
+          <circle cx="50" cy="55" r="20" fill="none" stroke="#ef4444" stroke-width="4" />
+          <path d="M 70 35 L 70 75" stroke="#ef4444" stroke-width="4" />
+        </svg>
+        <div class="instruct-text"><b>Small a:</b><br>1. ⭕ छोटा गोला बनाएं<br>2. ⬇️ सीधी छोटी लाइन</div>
       </div>
     </div>
 
-    <!-- Showcase Area -->
-    <div class="showcase">
-      <div class="letter-3d">A</div>
-      <!-- Ultra-Clean Realistic 3D Apple -->
-      <img src="https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?w=400&auto=format&fit=crop&q=80" alt="Real Apple" class="apple-img">
+    <!-- Illustrations (Apple & Ant) -->
+    <div class="illustrations-grid">
+      <div class="item-card">
+        <img src="https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?w=200&auto=format&fit=crop&q=80" alt="Apple">
+        <div class="item-label">A for apple</div>
+      </div>
+      <div class="item-card">
+        <!-- High-Quality Realistic Ant Vector/PNG -->
+        <svg width="80" height="80" viewBox="0 0 100 100">
+          <ellipse cx="30" cy="60" rx="15" ry="10" fill="#78350f" />
+          <ellipse cx="50" cy="55" rx="10" ry="8" fill="#92400e" />
+          <circle cx="68" cy="48" r="9" fill="#b45309" />
+          <circle cx="71" cy="45" r="2" fill="#ffffff" />
+          <path d="M 50 55 Q 40 75 30 80 M 50 55 Q 55 75 50 80 M 50 55 Q 65 75 70 80" stroke="#78350f" stroke-width="3" fill="none" />
+          <path d="M 70 42 Q 78 30 85 28 M 70 42 Q 75 28 80 22" stroke="#78350f" stroke-width="2" fill="none" />
+        </svg>
+        <div class="item-label" style="color: #b45309;">A for ant</div>
+      </div>
     </div>
 
-    <!-- Caption Banner -->
-    <div class="caption-banner">
-      ‘A’ FOR APPLE (एप्पल - सेब)
-    </div>
-
-    <!-- Tracing Canvas Area -->
-    <div class="tracing-section">
-      <div class="tracing-title">👇 उंगली या पेन से 'A' ट्रेस करें (Trace Here):</div>
-      
+    <!-- Tracing Section (English Four Line Notebook) -->
+    <div class="tracing-container">
       <div class="canvas-wrapper" id="canvasWrapper">
-        <!-- Notebook Clean Lines -->
-        <div class="guide-lines">
-          <div class="line red"></div>
-          <div class="line blue"></div>
-          <div class="line blue"></div>
-          <div class="line red"></div>
+        <!-- 4-Line Notebook Lines -->
+        <div class="four-lines-bg">
+          <div class="line-group">
+            <div class="line top-red"></div>
+            <div class="line mid-blue"></div>
+            <div class="line mid-blue"></div>
+            <div class="line bot-red"></div>
+          </div>
+          <div class="line-group">
+            <div class="line top-red"></div>
+            <div class="line mid-blue"></div>
+            <div class="line mid-blue"></div>
+            <div class="line bot-red"></div>
+          </div>
         </div>
 
-        <!-- Trace Background Letter Template -->
-        <div class="trace-template">A A</div>
+        <!-- Tracing Templates -->
+        <div class="line-templates">
+          <div class="template-row">
+            <span>A</span><span>A</span><span>A</span><span>A</span>
+          </div>
+          <div class="template-row">
+            <span>a</span><span>a</span><span>a</span><span>a</span>
+          </div>
+        </div>
 
-        <!-- Smooth Interactive Canvas -->
+        <!-- Canvas -->
         <canvas id="paintCanvas"></canvas>
       </div>
     </div>
@@ -262,13 +354,13 @@
     <!-- Controls -->
     <div class="controls">
       <div class="color-picker">
-        <span style="font-size: 13px; font-weight: 700; color: #4b5563;">रंग:</span>
+        <span style="font-size: 12px; font-weight: 700; color: #475569;">पेन्सिल रंग:</span>
         <div class="color-dot" style="background: #ef4444;" onclick="changeColor('#ef4444')"></div>
         <div class="color-dot" style="background: #2563eb;" onclick="changeColor('#2563eb')"></div>
         <div class="color-dot" style="background: #16a34a;" onclick="changeColor('#16a34a')"></div>
-        <div class="color-dot" style="background: #d97706;" onclick="changeColor('#d97706')"></div>
+        <div class="color-dot" style="background: #09090b;" onclick="changeColor('#09090b')"></div>
       </div>
-      <button class="btn-clear" onclick="clearCanvas()">🧹 मिटाएं (Reset)</button>
+      <button class="btn-clear" onclick="clearCanvas()">🧹 साफ़ करें (Reset)</button>
     </div>
   </div>
 
@@ -278,14 +370,13 @@
     const wrapper = document.getElementById('canvasWrapper');
 
     let isDrawing = false;
-    let currentColor = '#ef4444';
+    let currentColor = '#2563eb';
 
     function resizeCanvas() {
-      // High-DPI screen sharp rendering
       const rect = wrapper.getBoundingClientRect();
       canvas.width = rect.width;
       canvas.height = rect.height;
-      ctx.lineWidth = 7;
+      ctx.lineWidth = 6;
       ctx.lineCap = 'round';
       ctx.lineJoin = 'round';
       ctx.strokeStyle = currentColor;
@@ -332,13 +423,11 @@
       isDrawing = false;
     }
 
-    // Mouse Controls
     canvas.addEventListener('mousedown', startDrawing);
     canvas.addEventListener('mousemove', draw);
     canvas.addEventListener('mouseup', stopDrawing);
     canvas.addEventListener('mouseleave', stopDrawing);
 
-    // Touch Controls for Mobile/Tablet
     canvas.addEventListener('touchstart', startDrawing);
     canvas.addEventListener('touchmove', draw);
     canvas.addEventListener('touchend', stopDrawing);
