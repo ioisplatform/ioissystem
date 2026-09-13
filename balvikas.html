@@ -1,168 +1,153 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>बाल विकास पोर्टल - IOIS PLATFORM</title>
-    <script src="https://jsdelivr.net"></script>
-    <link rel="stylesheet" href="https://cloudflare.com">
-    <style>
-        .kid-font { font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>बाल विकास - अध्याय 1: A for Apple | IOIS PLATFORM</title>
+  
+  <!-- Fabric.js Free Drawing Canvas Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.1/fabric.min.js"></script>
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    body { background-color: #f4f7f6; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 10px; }
+    
+    /* Main Card Container */
+    .workbook-card {
+      background: #ffffff;
+      width: 100%;
+      max-width: 520px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+      padding: 15px;
+      border: 2px solid #ffd700;
+    }
+
+    /* Header Styling */
+    .header { text-align: center; margin-bottom: 12px; }
+    .brand-title { color: #d97706; font-size: 22px; font-weight: bold; }
+    .sub-title { color: #4b5563; font-size: 14px; margin-top: 2px; }
+
+    /* Control Buttons Toolbar */
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #fffbe2;
+      padding: 10px 14px;
+      border-radius: 12px;
+      margin-bottom: 12px;
+      border: 1px solid #fef08a;
+    }
+    
+    .color-options { display: flex; gap: 10px; align-items: center; }
+    
+    .color-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 2px solid #ffffff;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      transition: transform 0.1s ease;
+    }
+    .color-btn:active { transform: scale(0.9); }
+    .color-red { background: #ef4444; }
+    .color-blue { background: #3b82f6; }
+    .color-green { background: #22c55e; }
+    .color-yellow { background: #eab308; }
+
+    .action-btn {
+      background: #ef4444;
+      color: white;
+      border: none;
+      padding: 8px 14px;
+      font-size: 13px;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(239, 68, 68, 0.3);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .action-btn:active { opacity: 0.9; }
+
+    /* Canvas Wrapper */
+    .canvas-container-wrapper {
+      display: flex;
+      justify-content: center;
+      touch-action: none; /* Prevents scrolling while tracing */
+      border-radius: 12px;
+      overflow: hidden;
+      border: 2px dashed #f59e0b;
+    }
+  </style>
 </head>
-<body class="bg-gradient-to-b from-amber-50 to-orange-100 text-slate-800 kid-font min-h-screen">
+<body>
 
-    <!-- Top Navigation Bar -->
-    <header class="bg-white border-b border-orange-200 shadow-sm sticky top-0 z-50">
-        <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
-            <a href="index.html" class="text-orange-600 font-bold text-lg flex items-center">
-                <i class="fa-solid fa-chevron-left mr-2 text-sm"></i> IOIS बाल विकास पोर्टल
-            </a>
-            <span class="bg-amber-400 text-slate-950 font-bold px-3 py-1 rounded-full text-xs shadow-sm">
-                🎒 0-5 वर्ष स्पेशल शिक्षा
-            </span>
-        </div>
-    </header>
+  <div class="workbook-card">
+    <!-- Branding Header -->
+    <div class="header">
+      <div class="brand-title">🌟 IOIS PLATFORM 🌟</div>
+      <div class="sub-title">बाल विकास - भाग 1 (अध्याय 1: A for Apple)</div>
+    </div>
 
-    <!-- Main Section -->
-    <main class="max-w-3xl mx-auto px-4 py-6 space-y-8">
-        
-        <!-- Welcome Card -->
-        <div class="bg-white rounded-3xl p-6 shadow-md border-2 border-orange-200 text-center">
-            <h1 class="text-3xl font-black text-orange-600 tracking-wide">🎈 चलो खेलें और सीखें! 🎈</h1>
-            <p class="text-slate-600 mt-2 text-sm">अक्षर, आवाज़, वीडियो और ड्राइंग के माध्यम से प्रारंभिक शिक्षा।</p>
-        </div>
+    <!-- Drawing Tools Bar -->
+    <div class="toolbar">
+      <div class="color-options">
+        <span style="font-size: 12px; font-weight: bold; color: #6b7280;">रंग:</span>
+        <button class="color-btn color-red" onclick="changeColor('#ef4444')"></button>
+        <button class="color-btn color-blue" onclick="changeColor('#3b82f6')"></button>
+        <button class="color-btn color-green" onclick="changeColor('#22c55e')"></button>
+        <button class="color-btn color-yellow" onclick="changeColor('#eab308')"></button>
+      </div>
+      <button class="action-btn" onclick="clearCanvas()">
+        <span>🧹</span> मिटाएं (Reset)
+      </button>
+    </div>
 
-        <!-- 1. The Visual & Audio Module (A for Apple) -->
-        <div class="bg-white rounded-3xl p-6 shadow-md border-2 border-indigo-200 overflow-hidden relative">
-            <div class="absolute -right-4 -top-4 w-20 h-20 bg-indigo-100 rounded-full opacity-50"></div>
-            <h2 class="text-xl font-extrabold text-indigo-700 mb-4 flex items-center">
-                <i class="fa-solid fa-volume-high mr-2 text-indigo-500 animate-bounce"></i> 1. देखो और सुनो (Photo & Audio)
-            </h2>
-            
-            <div class="flex flex-col sm:flex-row items-center justify-around gap-6 py-4">
-                <!-- Large Letter Box -->
-                <div class="bg-indigo-600 text-white w-32 h-32 rounded-3xl flex items-center justify-center text-7xl font-black shadow-lg transform hover:scale-105 transition-all">
-                    A
-                </div>
-                
-                <!-- Object Display with SVG (Real Vector Apple) -->
-                <div class="text-center">
-                    <svg viewBox="0 0 100 100" class="w-36 h-36 mx-auto drop-shadow-md">
-                        <!-- Apple Body -->
-                        <path d="M50,30 C35,20 15,35 25,65 C33,85 48,88 50,85 C52,88 67,85 75,65 C85,35 65,20 50,30 Z" fill="#e11d48"/>
-                        <!-- Apple Stem -->
-                        <path d="M50,32 C48,20 55,12 60,10" stroke="#78350f" stroke-width="4" fill="none" stroke-linecap="round"/>
-                        <!-- Leaf -->
-                        <path d="M52,24 C58,18 68,18 70,22 C70,28 62,30 52,24 Z" fill="#16a34a"/>
-                    </svg>
-                    <p class="text-2xl font-black text-slate-800 mt-2 tracking-wide">A For Apple (सेब)</p>
-                </div>
+    <!-- Interactive Drawing Canvas -->
+    <div class="canvas-container-wrapper">
+      <canvas id="workbook-canvas" width="480" height="680"></canvas>
+    </div>
+  </div>
 
-                <!-- Pronunciation Button -->
-                <button onclick="speakAlphabet()" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-6 py-4 rounded-2xl shadow-md flex items-center space-x-2 transform active:scale-95 transition-all text-md cursor-pointer">
-                    <i class="fa-solid fa-play text-lg"></i> <span>आवाज़ सुनो</span>
-                </button>
-            </div>
-        </div>
+  <script>
+    // Initialize Fabric Canvas
+    const canvas = new fabric.Canvas('workbook-canvas', {
+      isDrawingMode: true
+    });
 
-        <!-- 2. Interactive Writing & Tracing Setup -->
-        <div class="bg-white rounded-3xl p-6 shadow-md border-2 border-emerald-200">
-            <h2 class="text-xl font-extrabold text-emerald-700 mb-2 flex items-center">
-                <i class="fa-solid fa-pen-fancy mr-2 text-emerald-500"></i> 2. लिखकर अभ्यास करो (Tracing Board)
-            </h2>
-            <p class="text-xs text-slate-500 mb-4">नीचे दिए गए स्लेट पर अपनी उंगली या माउस से 'A' लिखने का अभ्यास करें:</p>
-            
-            <div class="bg-slate-900 rounded-2xl p-4 flex flex-col items-center">
-                <canvas id="paintCanvas" width="280" height="200" class="bg-slate-800 rounded-xl border-2 border-dashed border-slate-500 cursor-crosshair touch-none shadow-inner"></canvas>
-                <div class="flex space-x-3 mt-4">
-                    <button onclick="clearCanvas()" class="bg-rose-500 hover:bg-rose-600 text-white text-xs font-bold px-4 py-2 rounded-xl shadow transition-all cursor-pointer">
-                        <i class="fa-solid fa-trash-can mr-1"></i> साफ करें (Clear)
-                    </button>
-                </div>
-            </div>
-        </div>
+    // Default Brush Settings
+    canvas.freeDrawingBrush.width = 7;
+    canvas.freeDrawingBrush.color = '#ef4444';
 
-        <!-- 3. Embedded Video Section -->
-        <div class="bg-white rounded-3xl p-6 shadow-md border-2 border-rose-200">
-            <h2 class="text-xl font-extrabold text-rose-700 mb-4 flex items-center">
-                <i class="fa-solid fa-film mr-2 text-rose-500"></i> 3. वीडियो देखकर सीखें (Video Learning)
-            </h2>
-            <!-- Embedded Educational Nursery Rhyme Container -->
-            <div class="aspect-video w-full rounded-2xl overflow-hidden border border-rose-100 shadow-sm bg-slate-100">
-                <iframe class="w-full h-full" src="https://youtube.com" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-            </div>
-        </div>
+    // High-Quality 'A for Apple' Premium Background Page
+    const bgImageUrl = 'https://i.ibb.co/VMy4v2d/A-For-Apple-Workbook-Page.png';
 
-    </main>
+    function loadBackgroundImage() {
+      fabric.Image.fromURL(bgImageUrl, function(img) {
+        canvas.setBackgroundImage(img, canvas.renderAll.bind(canvas), {
+          scaleX: canvas.width / img.width,
+          scaleY: canvas.height / img.height
+        });
+      }, { crossOrigin: 'anonymous' });
+    }
 
-    <!-- Simple Text-to-Speech and Canvas JavaScript Scripts -->
-    <script>
-        // 1. Text to Speech Function
-        function speakAlphabet() {
-            if ('speechSynthesis' in window) {
-                // Speak English context
-                let msgEng = new SpeechSynthesisUtterance("A for Apple");
-                msgEng.lang = 'en-US';
-                msgEng.rate = 0.8;
-                
-                // Speak Hindi context after English ends
-                msgEng.onend = function() {
-                    let msgHin = new SpeechSynthesisUtterance("ए फॉर एप्पल, एप्पल माने सेब");
-                    msgHin.lang = 'hi-IN';
-                    msgHin.rate = 0.85;
-                    window.speechSynthesis.speak(msgHin);
-                };
-                
-                window.speechSynthesis.speak(msgEng);
-            } else {
-                alert("आपका ब्राउज़र ऑडियो सपोर्ट नहीं करता है।");
-            }
-        }
+    // Load Image Initially
+    loadBackgroundImage();
 
-        // 2. Drawing Canvas Configuration
-        const canvas = document.getElementById('paintCanvas');
-        const ctx = canvas.getContext('2d');
-        let isDrawing = false;
+    // Change Brush Color Function
+    function changeColor(color) {
+      canvas.freeDrawingBrush.color = color;
+    }
 
-        ctx.strokeStyle = '#38bdf8'; // Sky blue color chalk effect
-        ctx.lineWidth = 6;
-        ctx.lineCap = 'round';
-        ctx.lineJoin = 'round';
-
-        // Mouse and Touch Event Handlers
-        function startDrawing(e) {
-            isDrawing = true;
-            draw(e);
-        }
-        function stopDrawing() { isDrawing = false; ctx.beginPath(); }
-        
-        function draw(e) {
-            if (!isDrawing) return;
-            e.preventDefault();
-            const rect = canvas.getBoundingClientRect();
-            // Support both mouse and finger touches
-            const x = (e.clientX || e.touches[0].clientX) - rect.left;
-            const y = (e.clientY || e.touches[0].clientY) - rect.top;
-            
-            ctx.lineTo(x, y);
-            ctx.stroke();
-            ctx.beginPath();
-            ctx.moveTo(x, y);
-        }
-
-        canvas.addEventListener('mousedown', startDrawing);
-        canvas.addEventListener('mousemove', draw);
-        canvas.addEventListener('mouseup', stopDrawing);
-        canvas.addEventListener('mouseout', stopDrawing);
-
-        canvas.addEventListener('touchstart', startDrawing);
-        canvas.addEventListener('touchmove', draw);
-        canvas.addEventListener('touchend', stopDrawing);
-
-        function clearCanvas() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-        }
-    </script>
+    // Clear Canvas Function
+    function clearCanvas() {
+      canvas.clear();
+      loadBackgroundImage();
+    }
+  </script>
 </body>
 </html>
