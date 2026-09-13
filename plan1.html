@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>बाल विकास - Live Animated A & a Tracing | IOIS PLATFORM</title>
+  <title>A for Apple - Animated Tracing Notebook</title>
   <style>
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Segoe UI', Roboto, 'Comic Sans MS', sans-serif;
+      font-family: 'Comic Sans MS', cursive, 'Segoe UI', sans-serif;
     }
 
     body {
@@ -22,14 +22,14 @@
       user-select: none;
     }
 
-    .page-card {
+    .card {
       width: 100%;
-      max-width: 600px;
+      max-width: 620px;
       background: #ffffff;
       border-radius: 24px;
-      box-shadow: 0 20px 40px rgba(2, 132, 199, 0.15);
       border: 4px solid #0284c7;
       overflow: hidden;
+      box-shadow: 0 20px 40px rgba(2, 132, 199, 0.2);
       display: flex;
       flex-direction: column;
     }
@@ -37,72 +37,42 @@
     /* Header */
     .header {
       background: linear-gradient(135deg, #0284c7, #0369a1);
+      color: #ffffff;
       padding: 16px;
       text-align: center;
-      color: #ffffff;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
 
-    .brand-title {
+    .title {
       font-size: 24px;
       font-weight: 900;
-      letter-spacing: 0.5px;
     }
 
-    .brand-subtitle {
+    .subtitle {
       font-size: 13px;
-      font-weight: 700;
       color: #bae6fd;
-      margin-top: 2px;
+      font-weight:bold;
     }
 
-    /* Badges Display */
-    .badge-bar {
-      display: flex;
-      justify-content: center;
-      gap: 30px;
-      padding: 15px;
-      background: #f0f9ff;
-    }
-
-    .letter-badge {
-      width: 85px;
-      height: 85px;
-      background: #ffffff;
-      border: 3px solid #0284c7;
-      border-radius: 20px;
+    /* Dialogue Banner */
+    .speech-box {
+      background: #fef08a;
+      border-bottom: 2px solid #fde047;
+      padding: 12px;
+      text-align: center;
+      font-size: 15px;
+      font-weight: 800;
+      color: #854d0e;
+      min-height: 48px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 60px;
-      font-weight: 900;
-      color: #0284c7;
-      box-shadow: 0 8px 16px rgba(2, 132, 199, 0.15);
     }
 
-    .letter-badge.small {
-      color: #dc2626;
-      border-color: #dc2626;
-      box-shadow: 0 8px 16px rgba(220, 38, 38, 0.15);
-    }
-
-    /* Instructions & Banner */
-    .banner {
-      background: #fef08a;
-      border-top: 1px solid #fde047;
-      border-bottom: 1px solid #fde047;
-      padding: 10px;
-      text-align: center;
-      font-size: 14px;
-      font-weight: 800;
-      color: #854d0e;
-    }
-
-    /* Main Canvas Section */
+    /* Canvas Box */
     .canvas-container {
       position: relative;
       width: 100%;
-      height: 320px;
+      height: 330px;
       background: #ffffff;
     }
 
@@ -112,7 +82,7 @@
       display: block;
     }
 
-    /* Controls Bar */
+    /* Controls */
     .controls {
       display: flex;
       justify-content: space-between;
@@ -123,129 +93,61 @@
     }
 
     .btn {
+      padding: 10px 20px;
       border: none;
-      padding: 10px 18px;
+      border-radius: 12px;
       font-size: 14px;
       font-weight: 800;
-      border-radius: 12px;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      transition: all 0.2s ease;
-    }
-
-    .btn-replay {
-      background: #0284c7;
       color: #ffffff;
-      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: transform 0.1s ease;
     }
 
-    .btn-replay:hover { background: #0369a1; }
-
-    .btn-clear {
-      background: #ef4444;
-      color: #ffffff;
-      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
-    }
-
-    .btn-clear:hover { background: #dc2626; }
-
-    .color-picker {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .color-dot {
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      cursor: pointer;
-      border: 2px solid #ffffff;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-    }
+    .btn:active { transform: scale(0.95); }
+    .btn-replay { background: #0284c7; }
+    .btn-clear { background: #ef4444; }
   </style>
 </head>
 <body>
 
-  <div class="page-card">
+  <div class="card">
     <!-- Header -->
     <div class="header">
-      <div class="brand-title">बाल विकास: अध्ययन पुस्तिका</div>
-      <div class="brand-subtitle">🌟 IOIS PLATFORM 🌟</div>
+      <div class="title">बाल विकास: 4-Line Tracing Notebook</div>
+      <div class="subtitle">🌟 IOIS PLATFORM 🌟</div>
     </div>
 
-    <!-- Letter Showcase -->
-    <div class="badge-bar">
-      <div class="letter-badge">A</div>
-      <div class="letter-badge small">a</div>
+    <!-- Speech Dialogue Banner -->
+    <div class="speech-box" id="speechBox">
+      🔊 शुरू करने के लिए "फिर से शुरू करें" पर क्लिक करें!
     </div>
 
-    <!-- Banner -->
-    <div class="banner">✍️ पेंसिल एनीमेशन देखें और 4-लाइन कॉपी में 'A' और 'a' का अभ्यास करें!</div>
-
-    <!-- Live Canvas Workspace -->
+    <!-- Workspace Canvas -->
     <div class="canvas-container">
       <canvas id="mainCanvas"></canvas>
     </div>
 
-    <!-- Controls Bar -->
+    <!-- Controls -->
     <div class="controls">
-      <button class="btn btn-replay" onclick="replayAnimation()">🔄 फिर से देखें</button>
-      
-      <div class="color-picker">
-        <div class="color-dot" style="background: #0284c7;" onclick="setPenColor('#0284c7')"></div>
-        <div class="color-dot" style="background: #dc2626;" onclick="setPenColor('#dc2626')"></div>
-        <div class="color-dot" style="background: #16a34a;" onclick="setPenColor('#16a34a')"></div>
-        <div class="color-dot" style="background: #09090b;" onclick="setPenColor('#09090b')"></div>
-      </div>
-
-      <button class="btn btn-clear" onclick="clearUserDrawing()">🧹 साफ़ करें</button>
+      <button class="btn btn-replay" onclick="startAnimation()">🔄 फिर से शुरू करें & आवाज़ सुनें</button>
+      <button class="btn btn-clear" onclick="clearUserDrawings()">🧹 ट्रेसिंग साफ़ करें</button>
     </div>
   </div>
 
   <script>
     const canvas = document.getElementById('mainCanvas');
     const ctx = canvas.getContext('2d');
+    const speechBox = document.getElementById('speechBox');
 
     let w, h;
-    let animProgressCapA = 0;
-    let animProgressSmallA = 0;
-    let selectedColor = '#0284c7';
-    let userStrokes = [];
-    let isDrawing = false;
-    let currentStroke = [];
+    let tCapA = 0, tSmallA = 0;
+    let userPaths = [], currentPath = [], isDrawing = false;
 
-    // Realistic Live Apple Image (SVG Rendered Live)
-    const appleSvg = new Image();
-    const appleSvgData = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
-      <defs>
-        <radialGradient id="appleGrad" cx="35%" cy="30%" r="70%">
-          <stop offset="0%" stop-color="#ff6b6b" />
-          <stop offset="50%" stop-color="#e60000" />
-          <stop offset="85%" stop-color="#990000" />
-          <stop offset="100%" stop-color="#4a0000" />
-        </radialGradient>
-        <linearGradient id="leafGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stop-color="#8ce99a" />
-          <stop offset="100%" stop-color="#2b8a3e" />
-        </linearGradient>
-        <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-          <feDropShadow dx="0" dy="8" stdDeviation="6" flood-opacity="0.3"/>
-        </filter>
-      </defs>
-      <!-- Leaf & Stem -->
-      <path d="M100,50 Q110,25 105,10 C103,8 99,8 98,12 Q95,30 96,50 Z" fill="#5c390d" />
-      <path d="M100,28 C120,10 145,20 135,38 C120,45 105,35 100,28 Z" fill="url(#leafGrad)" />
-      <!-- Apple Body -->
-      <path d="M100,50 C130,45 175,60 170,110 C165,160 125,185 100,175 C75,185 35,160 30,110 C25,60 70,45 100,50 Z" fill="url(#appleGrad)" filter="url(#shadow)" />
-      <!-- Highlights -->
-      <ellipse cx="65" cy="80" rx="15" ry="25" fill="#ffffff" opacity="0.25" transform="rotate(-20 65 80)" />
-    </svg>`;
-    appleSvg.src = 'data:image/svg+xml;utf8,' + encodeURIComponent(appleSvgData);
+    // Real Photo from generated image
+    const realAppleImg = new Image();
+    realAppleImg.src = "watermarked_img_2507508125906239839.png";
 
-    // Dynamic Resizing
     function resizeCanvas() {
       w = canvas.width = canvas.offsetWidth;
       h = canvas.height = canvas.offsetHeight;
@@ -253,126 +155,121 @@
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
 
-    // English 4-Line Geometry Definition
-    // Capital A uses Lines 1 to 3 (Top 3 lines)
-    // Small a uses Lines 2 to 3 (Middle 2 lines)
-    function getLineY(row, lineIndex) {
-      // row 0: Capital A row, row 1: Small a row
-      const startY = row === 0 ? 30 : 170;
-      const spacing = 28; // height between lines
-      return startY + (lineIndex * spacing);
+    // English 4-Line Notebook Geometry
+    function getLineY(row, lineIdx) {
+      const base = row === 0 ? 35 : 180;
+      return base + (lineIdx * 26);
     }
 
-    // Mathematical Trajectory for Capital A (3-Lines)
+    // Capital 'A' Trajectory (Top 3 lines)
     function getCapAPoint(t) {
-      const line1 = getLineY(0, 0); // Red Top
-      const line3 = getLineY(0, 2); // Blue Bottom (3rd line)
-      const line2 = getLineY(0, 1.3); // Mid line for crossbar
-
-      const startX = 50;
-      const apexX = 85;
-      const endX = 120;
-
-      if (t <= 0.4) { // Upward Slant Stroke 1
+      const l1 = getLineY(0, 0), l3 = getLineY(0, 2), midY = getLineY(0, 1.2);
+      if (t <= 0.4) {
         let p = t / 0.4;
-        return { x: startX + (apexX - startX) * p, y: line3 + (line1 - line3) * p };
-      } else if (t <= 0.8) { // Downward Slant Stroke 2
+        return { x: 45 + 35 * p, y: l3 + (l1 - l3) * p };
+      } else if (t <= 0.8) {
         let p = (t - 0.4) / 0.4;
-        return { x: apexX + (endX - apexX) * p, y: line1 + (line3 - line1) * p };
-      } else { // Horizontal Crossbar Stroke 3
+        return { x: 80 + 35 * p, y: l1 + (l3 - l1) * p };
+      } else {
         let p = (t - 0.8) / 0.2;
-        return { x: 67 + (103 - 67) * p, y: line2 };
+        return { x: 60 + 40 * p, y: midY };
       }
     }
 
-    // Mathematical Trajectory for Small a (Middle 2 Lines)
+    // Small 'a' Trajectory (Middle 2 lines)
     function getSmallAPoint(t) {
-      const line2 = getLineY(1, 1); // Top Blue (Line 2)
-      const line3 = getLineY(1, 2); // Bottom Blue (Line 3)
-      const centerY = (line2 + line3) / 2;
-      const radius = (line3 - line2) / 2;
-      const centerX = 75;
-
-      if (t <= 0.75) { // Anti-clockwise Circle
-        let p = t / 0.75;
-        let angle = -p * Math.PI * 2;
-        return { x: centerX + radius + Math.cos(angle) * radius - radius, y: centerY + Math.sin(angle) * radius };
-      } else { // Downward Vertical Stem
+      const l2 = getLineY(1, 1), l3 = getLineY(1, 2);
+      const centerY = (l2 + l3) / 2, r = (l3 - l2) / 2, centerX = 75;
+      if (t <= 0.75) {
+        let angle = -(t / 0.75) * Math.PI * 2;
+        return { x: centerX + Math.cos(angle) * r, y: centerY + Math.sin(angle) * r };
+      } else {
         let p = (t - 0.75) / 0.25;
-        return { x: centerX + radius, y: line2 + (line3 - line2) * p };
+        return { x: centerX + r, y: l2 + (l3 - l2) * p };
       }
     }
 
-    // Main Render Loop
+    // Voice Dialogue Sequence
+    function speakText(text, callback) {
+      speechBox.innerText = "🗣️ " + text;
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const msg = new SpeechSynthesisUtterance(text);
+        msg.lang = 'hi-IN';
+        msg.rate = 0.9;
+        msg.pitch = 1.2; // Kid-like tone
+        if (callback) msg.onend = callback;
+        window.speechSynthesis.speak(msg);
+      } else {
+        if (callback) setTimeout(callback, 2000);
+      }
+    }
+
+    // Animation Render Loop
     function render() {
       ctx.clearRect(0, 0, w, h);
 
-      // 1. Draw 4-Line English Notebook Background
-      draw4LineNotebook();
-
-      // 2. Draw Light Template Guidance Text
-      drawLightTemplates();
-
-      // 3. Draw User Traced Lines
-      drawUserStrokes();
-
-      // 4. Draw Animated Capital A + Pencil
-      if (animProgressCapA < 1) animProgressCapA += 0.006;
-      drawAnimatedPath(getCapAPoint, animProgressCapA, '#0284c7');
-
-      // 5. Draw Animated Small a + Pencil
-      if (animProgressSmallA < 1) animProgressSmallA += 0.007;
-      drawAnimatedPath(getSmallAPoint, animProgressSmallA, '#dc2626');
-
-      // 6. Render Real Live Apple & Text
-      if (appleSvg.complete) {
-        ctx.drawImage(appleSvg, w - 170, 25, 130, 130);
-        ctx.fillStyle = '#dc2626';
-        ctx.font = 'bold 16px "Comic Sans MS", cursive, sans-serif';
-        ctx.fillText('A for apple', w - 150, 170);
-      }
-
-      // 7. Render Crawling Live Ant
-      renderCrawlingAnt();
-
-      requestAnimationFrame(render);
-    }
-
-    function draw4LineNotebook() {
-      for (let row = 0; row < 2; row++) {
+      // 1. Draw 4-Line Notebook Background
+      for (let r = 0; r < 2; r++) {
         for (let i = 0; i < 4; i++) {
-          let y = getLineY(row, i);
+          let y = getLineY(r, i);
           ctx.beginPath();
           ctx.moveTo(20, y);
-          ctx.lineTo(w - 180, y);
-          ctx.lineWidth = 2;
-          ctx.strokeStyle = (i === 0 || i === 3) ? '#f87171' : '#60a5fa'; // Red top/bottom, Blue middle
+          ctx.lineTo(w - 220, y);
+          ctx.strokeStyle = (i === 0 || i === 3) ? '#ef4444' : '#3b82f6';
+          ctx.lineWidth = 1.5;
           if (i === 1 || i === 2) ctx.setLineDash([5, 5]);
           else ctx.setLineDash([]);
           ctx.stroke();
           ctx.setLineDash([]);
         }
       }
+
+      // 2. Faint Template Guide
+      ctx.fillStyle = '#f1f5f9';
+      ctx.font = '900 75px sans-serif';
+      ctx.fillText('A', 45, getLineY(0, 2) - 2);
+      ctx.font = '900 48px sans-serif';
+      ctx.fillText('a', 63, getLineY(1, 2) - 2);
+
+      // 3. Draw Animated Pencil Strokes
+      if (tCapA < 1) tCapA += 0.006;
+      drawPencilStroke(getCapAPoint, tCapA, '#0284c7');
+
+      if (tSmallA < 1) tSmallA += 0.007;
+      drawPencilStroke(getSmallAPoint, tSmallA, '#dc2626');
+
+      // 4. Render Real Live Apple & Ant Photo
+      if (realAppleImg.complete) {
+        ctx.drawImage(realAppleImg, w - 210, 20, 195, 195);
+        ctx.fillStyle = '#78350f';
+        ctx.font = 'bold 15px "Comic Sans MS", cursive, sans-serif';
+        ctx.fillText('🐜 चींटी की बच्ची सेब खा रही है!', w - 210, 235);
+      }
+
+      // 5. Draw User Practice Traces
+      ctx.strokeStyle = '#16a34a';
+      ctx.lineWidth = 5;
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+      userPaths.forEach(path => {
+        ctx.beginPath();
+        path.forEach((pt, i) => {
+          if (i === 0) ctx.moveTo(pt.x, pt.y);
+          else ctx.lineTo(pt.x, pt.y);
+        });
+        ctx.stroke();
+      });
+
+      requestAnimationFrame(render);
     }
 
-    function drawLightTemplates() {
-      // Capital A Template (Top 3 Lines)
-      ctx.fillStyle = '#e2e8f0';
-      ctx.font = '900 80px sans-serif';
-      ctx.fillText('A', 50, getLineY(0, 2) - 5);
-
-      // Small a Template (Middle 2 Lines)
-      ctx.font = '900 50px sans-serif';
-      ctx.fillText('a', 60, getLineY(1, 2) - 4);
-    }
-
-    function drawAnimatedPath(pathFn, prog, color) {
+    function drawPencilStroke(pathFn, prog, color) {
       ctx.beginPath();
-      ctx.lineWidth = 6;
+      ctx.lineWidth = 5;
       ctx.strokeStyle = color;
       ctx.lineCap = 'round';
       ctx.lineJoin = 'round';
-
       for (let t = 0; t <= prog; t += 0.01) {
         let pt = pathFn(t);
         if (t === 0) ctx.moveTo(pt.x, pt.y);
@@ -380,140 +277,58 @@
       }
       ctx.stroke();
 
-      // Pencil Cursor Animation
       if (prog < 1) {
         let pt = pathFn(prog);
-        drawPencilIcon(pt.x, pt.y);
+        drawPencil(pt.x, pt.y);
       }
     }
 
-    function drawPencilIcon(x, y) {
+    function drawPencil(x, y) {
       ctx.save();
       ctx.translate(x, y);
       ctx.rotate(-Math.PI / 4);
-
-      // Pencil Tip
       ctx.fillStyle = '#1e293b';
-      ctx.beginPath();
-      ctx.moveTo(0, 0);
-      ctx.lineTo(-8, -4);
-      ctx.lineTo(-8, 4);
-      ctx.fill();
-
-      // Wood Tip
+      ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(-8, -4); ctx.lineTo(-8, 4); ctx.fill();
       ctx.fillStyle = '#fde047';
-      ctx.beginPath();
-      ctx.moveTo(-8, -4);
-      ctx.lineTo(-16, -7);
-      ctx.lineTo(-16, 7);
-      ctx.lineTo(-8, 4);
-      ctx.fill();
-
-      // Pencil Body
-      ctx.fillStyle = '#ea580c';
-      ctx.fillRect(-36, -7, 20, 14);
-
-      // Eraser
-      ctx.fillStyle = '#f43f5e';
-      ctx.fillRect(-44, -7, 8, 14);
-
+      ctx.beginPath(); ctx.moveTo(-8, -4); ctx.lineTo(-16, -7); ctx.lineTo(-16, 7); ctx.lineTo(-8, 4); ctx.fill();
+      ctx.fillStyle = '#ea580c'; ctx.fillRect(-36, -7, 20, 14);
       ctx.restore();
     }
 
-    // Crawling Ant Animation Logic
-    let antX = 30;
-    let antLegFrame = 0;
-    function renderCrawlingAnt() {
-      antX += 0.6;
-      if (antX > w - 180) antX = 20;
-      antLegFrame += 0.25;
-
-      const y = 280;
-
-      ctx.save();
-      ctx.translate(antX, y);
-
-      // Ant Legs (Animated Wiggle)
-      ctx.strokeStyle = '#451a03';
-      ctx.lineWidth = 2;
-      for (let i = -1; i <= 1; i++) {
-        let legOffset = Math.sin(antLegFrame + i) * 5;
-        ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(i * 10, -12 + legOffset); ctx.stroke();
-        ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(i * 10, 12 - legOffset); ctx.stroke();
-      }
-
-      // Abdomen, Thorax, Head
-      ctx.fillStyle = '#78350f';
-      ctx.beginPath(); ctx.ellipse(-16, 0, 10, 7, 0, 0, Math.PI * 2); ctx.fill(); // Back
-      ctx.beginPath(); ctx.ellipse(-2, 0, 5, 4, 0, 0, Math.PI * 2); ctx.fill();   // Middle
-      ctx.beginPath(); ctx.ellipse(8, 0, 6, 6, 0, 0, Math.PI * 2); ctx.fill();    // Head
-
-      // Antennae
-      ctx.beginPath(); ctx.moveTo(12, -2); ctx.lineTo(18, -10 + Math.sin(antLegFrame)*2); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(12, 2); ctx.lineTo(18, 10 - Math.sin(antLegFrame)*2); ctx.stroke();
-
-      ctx.restore();
-
-      ctx.fillStyle = '#78350f';
-      ctx.font = 'bold 15px "Comic Sans MS", cursive, sans-serif';
-      ctx.fillText('A for ant', antX - 10, y + 25);
-    }
-
-    // User Interactive Tracing
-    function drawUserStrokes() {
-      ctx.lineWidth = 6;
-      ctx.lineCap = 'round';
-      ctx.lineJoin = 'round';
-      userStrokes.forEach(stroke => {
-        ctx.strokeStyle = stroke.color;
-        ctx.beginPath();
-        stroke.points.forEach((pt, idx) => {
-          if (idx === 0) ctx.moveTo(pt.x, pt.y);
-          else ctx.lineTo(pt.x, pt.y);
+    // Story Loop with Audio & Animation
+    function startAnimation() {
+      tCapA = 0;
+      tSmallA = 0;
+      speakText("यह है Capital A और Small a!", () => {
+        speakText("A for Apple! Apple का मतलब सेब!", () => {
+          speakText("अरे वाह! यह सेब तो बहुत मीठा है! 🍎", () => {
+            speakText("और देखो, नीचे चींटी की बच्ची भी सेब खा रही है! 🐜");
+          });
         });
-        ctx.stroke();
       });
     }
 
-    function getCanvasPos(e) {
-      const rect = canvas.getBoundingClientRect();
-      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-      return { x: clientX - rect.left, y: clientY - rect.top };
-    }
-
+    // User Interactive Tracing
     canvas.addEventListener('mousedown', (e) => {
       isDrawing = true;
-      currentStroke = { color: selectedColor, points: [getCanvasPos(e)] };
-      userStrokes.push(currentStroke);
+      let rect = canvas.getBoundingClientRect();
+      currentPath = [{ x: e.clientX - rect.left, y: e.clientY - rect.top }];
+      userPaths.push(currentPath);
     });
 
     canvas.addEventListener('mousemove', (e) => {
       if (!isDrawing) return;
-      currentStroke.points.push(getCanvasPos(e));
+      let rect = canvas.getBoundingClientRect();
+      currentPath.push({ x: e.clientX - rect.left, y: e.clientY - rect.top });
     });
 
     canvas.addEventListener('mouseup', () => isDrawing = false);
 
-    canvas.addEventListener('touchstart', (e) => {
-      isDrawing = true;
-      currentStroke = { color: selectedColor, points: [getCanvasPos(e)] };
-      userStrokes.push(currentStroke);
-    });
+    function clearUserDrawings() { userPaths = []; }
 
-    canvas.addEventListener('touchmove', (e) => {
-      if (!isDrawing) return;
-      currentStroke.points.push(getCanvasPos(e));
-    });
-
-    canvas.addEventListener('touchend', () => isDrawing = false);
-
-    function setPenColor(color) { selectedColor = color; }
-    function replayAnimation() { animProgressCapA = 0; animProgressSmallA = 0; }
-    function clearUserDrawing() { userStrokes = []; }
-
-    // Start Loop
-    render();
+    realAppleImg.onload = () => {
+      render();
+    };
   </script>
 </body>
 </html>
