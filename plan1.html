@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>A for Apple - Real Notebook Tracing & Animated Ant</title>
+  <title>A for Apple - Complete Interactive Animation & User Tracing</title>
   <style>
     * {
       box-sizing: border-box;
@@ -24,7 +24,7 @@
 
     .card {
       width: 100%;
-      max-width: 680px;
+      max-width: 720px;
       background: #ffffff;
       border-radius: 24px;
       border: 4px solid #0284c7;
@@ -42,18 +42,10 @@
       text-align: center;
     }
 
-    .title {
-      font-size: 24px;
-      font-weight: 900;
-    }
+    .title { font-size: 24px; font-weight: 900; }
+    .subtitle { font-size: 13px; color: #bae6fd; font-weight: bold; }
 
-    .subtitle {
-      font-size: 13px;
-      color: #bae6fd;
-      font-weight: bold;
-    }
-
-    /* Child Dialogue Banner */
+    /* Ant Voice Speech Box */
     .speech-box {
       background: #fef08a;
       border-bottom: 2px solid #fde047;
@@ -62,7 +54,7 @@
       font-size: 16px;
       font-weight: 800;
       color: #854d0e;
-      min-height: 52px;
+      min-height: 55px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -73,8 +65,9 @@
     .canvas-container {
       position: relative;
       width: 100%;
-      height: 360px;
+      height: 380px;
       background: #ffffff;
+      touch-action: none; /* Mobile touch support */
     }
 
     canvas {
@@ -93,6 +86,7 @@
       background: #f8fafc;
       border-top: 2px solid #e2e8f0;
       gap: 10px;
+      flex-wrap: wrap;
     }
 
     .btn {
@@ -112,6 +106,15 @@
     .btn-replay:hover { background: #0369a1; }
     .btn-clear { background: #ef4444; }
     .btn-clear:hover { background: #dc2626; }
+    
+    .instruction {
+      font-size: 13px;
+      color: #16a34a;
+      font-weight: bold;
+      width: 100%;
+      text-align: center;
+      margin-top: 5px;
+    }
   </style>
 </head>
 <body>
@@ -119,13 +122,13 @@
   <div class="card">
     <!-- Header -->
     <div class="header">
-      <div class="title">बाल विकास: 4-Line Tracing & Animated Story</div>
+      <div class="title">A for Apple - Real Tracing & Ant Voiceover</div>
       <div class="subtitle">🌟 IOIS PLATFORM 🌟</div>
     </div>
 
-    <!-- Speech Dialogue Banner -->
+    <!-- Ant Speech Dialogue Banner -->
     <div class="speech-box" id="speechBox">
-      🗣️ शुरू करने के लिए "ऑडियो के साथ चलाएं" बटन पर क्लिक करें!
+      🐜 चींटी: "हेलो बच्चों! नीचे बटन दबाओ, मैं आपको A for Apple सिखाऊंगी!"
     </div>
 
     <!-- Workspace Canvas -->
@@ -135,8 +138,9 @@
 
     <!-- Controls -->
     <div class="controls">
-      <button class="btn btn-replay" onclick="startAnimation()">🔄 ऑडियो के साथ चलाएं</button>
-      <button class="btn btn-clear" onclick="clearUserDrawings()">🧹 अपनी ट्रेसिंग साफ़ करें</button>
+      <button class="btn btn-replay" onclick="startAntStory()">🐜 चींटी की आवाज़ में कहानी सुनें</button>
+      <button class="btn btn-clear" onclick="clearUserDrawings()">🧹 अपनी ड्राइंग साफ़ करें</button>
+      <div class="instruction">✍️ आप माउस या उंगली से स्क्रीन पर लिखकर प्रैक्टिस भी कर सकते हैं!</div>
     </div>
   </div>
 
@@ -148,58 +152,73 @@
     let w, h;
     let tCapA = 0, tSmallA = 0;
     let userPaths = [], currentPath = [], isDrawing = false;
-    let antLegAngle = 0; // Ant walking animation state
+    let antLegAngle = 0; 
+    let antPos = { x: 50, y: 340 }; // Crawling Ant Position
 
     function resizeCanvas() {
       w = canvas.width = canvas.offsetWidth;
       h = canvas.height = canvas.offsetHeight;
+      antPos.x = w - 160;
+      antPos.y = 230;
     }
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
 
-    // 4-Line Notebook Line Calculations (Accurate Spacing)
+    // English 4-Line Notebook Calculations
     function getLineY(row, lineIdx) {
-      const base = row === 0 ? 40 : 190;
-      return base + (lineIdx * 26);
+      const base = row === 0 ? 45 : 205;
+      return base + (lineIdx * 28);
     }
 
-    // Capital 'A' Trajectory (Top 3 lines accurately)
+    // Accurate Stroke Path for Capital 'A' (Top 3 Lines)
     function getCapAPoint(t) {
-      const l1 = getLineY(0, 0), l3 = getLineY(0, 2), midY = getLineY(0, 1.2);
-      if (t <= 0.4) {
-        let p = t / 0.4;
-        return { x: 45 + 35 * p, y: l3 + (l1 - l3) * p }; // Slant Up Line
-      } else if (t <= 0.8) {
-        let p = (t - 0.4) / 0.4;
-        return { x: 80 + 35 * p, y: l1 + (l3 - l1) * p }; // Slant Down Line
+      const l1 = getLineY(0, 0); // Top line
+      const l3 = getLineY(0, 2); // 3rd line
+      const midY = getLineY(0, 1.2); // Center bar line
+
+      if (t <= 0.45) {
+        // Step 1: Left Slant Line (Bottom to Top)
+        let p = t / 0.45;
+        return { x: 40 + 35 * p, y: l3 + (l1 - l3) * p };
+      } else if (t <= 0.85) {
+        // Step 2: Right Slant Line (Top to Bottom)
+        let p = (t - 0.45) / 0.4;
+        return { x: 75 + 35 * p, y: l1 + (l3 - l1) * p };
       } else {
-        let p = (t - 0.8) / 0.2;
-        return { x: 60 + 40 * p, y: midY }; // Sleeping Crossbar Line
+        // Step 3: Sleeping Crossbar (Left to Right)
+        let p = (t - 0.85) / 0.15;
+        return { x: 55 + 40 * p, y: midY };
       }
     }
 
-    // Small 'a' Trajectory (Middle 2 lines accurately)
+    // Accurate Stroke Path for Small 'a' (Middle 2 Lines)
     function getSmallAPoint(t) {
-      const l2 = getLineY(1, 1), l3 = getLineY(1, 2);
-      const centerY = (l2 + l3) / 2, r = (l3 - l2) / 2, centerX = 75;
+      const l2 = getLineY(1, 1);
+      const l3 = getLineY(1, 2);
+      const centerY = (l2 + l3) / 2;
+      const r = (l3 - l2) / 2;
+      const centerX = 75;
+
       if (t <= 0.75) {
+        // Step 1: Round Circle
         let angle = -(t / 0.75) * Math.PI * 2;
-        return { x: centerX + Math.cos(angle) * r, y: centerY + Math.sin(angle) * r }; // Curve Circle
+        return { x: centerX + Math.cos(angle) * r, y: centerY + Math.sin(angle) * r };
       } else {
+        // Step 2: Standing Right Line
         let p = (t - 0.75) / 0.25;
-        return { x: centerX + r, y: l2 + (l3 - l2) * p }; // Straight Right Line
+        return { x: centerX + r, y: l2 + (l3 - l2) * p };
       }
     }
 
-    // Voice Dialogue Sequence (Text-to-Speech Hindi)
-    function speakText(text, callback) {
-      speechBox.innerText = "🗣️ " + text;
+    // Ant Voice Utterance (Child Voice Pitch)
+    function speakAntVoice(text, callback) {
+      speechBox.innerText = "🐜 चींटी: \"" + text + "\"";
       if ('speechSynthesis' in window) {
         window.speechSynthesis.cancel();
         const msg = new SpeechSynthesisUtterance(text);
         msg.lang = 'hi-IN';
-        msg.rate = 0.9;
-        msg.pitch = 1.35; // Cute child voice pitch
+        msg.rate = 0.95;
+        msg.pitch = 1.6; // High pitch to mimic cute ant/child voice
         if (callback) msg.onend = callback;
         window.speechSynthesis.speak(msg);
       } else {
@@ -207,132 +226,132 @@
       }
     }
 
-    // Draw Realistic 3D Glossy Apple (No Image File Needed)
-    function drawRealisticApple(cx, cy) {
+    // Ultra-Realistic Glossy 3D Red Apple
+    function drawUltraRealisticApple(cx, cy) {
       ctx.save();
 
-      // Shadow
+      // Drop Shadow
       ctx.beginPath();
-      ctx.ellipse(cx, cy + 70, 65, 14, 0, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+      ctx.ellipse(cx, cy + 75, 70, 16, 0, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.25)';
       ctx.fill();
 
       // Stem (Teni)
       ctx.beginPath();
       ctx.moveTo(cx - 2, cy - 45);
-      ctx.quadraticCurveTo(cx - 15, cy - 75, cx - 18, cy - 80);
-      ctx.lineWidth = 6;
-      ctx.strokeStyle = '#4a2810';
+      ctx.quadraticCurveTo(cx - 15, cy - 80, cx - 20, cy - 85);
+      ctx.lineWidth = 7;
+      ctx.strokeStyle = '#3d1e0b';
       ctx.lineCap = 'round';
       ctx.stroke();
 
-      // Leaf (Patti)
+      // Leaf (Patti with realistic gradient)
       ctx.beginPath();
-      ctx.moveTo(cx - 10, cy - 65);
-      ctx.quadraticCurveTo(cx + 25, cy - 90, cx + 35, cy - 65);
-      ctx.quadraticCurveTo(cx + 10, cy - 50, cx - 10, cy - 65);
-      const leafGrad = ctx.createLinearGradient(cx - 10, cy - 85, cx + 35, cy - 50);
+      ctx.moveTo(cx - 10, cy - 70);
+      ctx.quadraticCurveTo(cx + 30, cy - 100, cx + 45, cy - 70);
+      ctx.quadraticCurveTo(cx + 15, cy - 50, cx - 10, cy - 70);
+      const leafGrad = ctx.createLinearGradient(cx - 10, cy - 90, cx + 45, cy - 50);
       leafGrad.addColorStop(0, '#4ade80');
       leafGrad.addColorStop(1, '#15803d');
       ctx.fillStyle = leafGrad;
       ctx.fill();
 
-      // Apple Body Base Gradient
+      // Apple Body 3D Base
       ctx.beginPath();
       ctx.moveTo(cx, cy - 45);
-      ctx.bezierCurveTo(cx + 45, cy - 60, cx + 80, cy - 10, cx + 70, cy + 30);
-      ctx.bezierCurveTo(cx + 60, cy + 70, cx + 20, cy + 75, cx, cy + 60);
-      ctx.bezierCurveTo(cx - 20, cy + 75, cx - 60, cy + 70, cx - 70, cy + 30);
-      ctx.bezierCurveTo(cx - 80, cy - 10, cx - 45, cy - 60, cx, cy - 45);
+      ctx.bezierCurveTo(cx + 50, cy - 65, cx + 85, cy - 10, cx + 75, cy + 35);
+      ctx.bezierCurveTo(cx + 65, cy + 75, cx + 20, cy + 80, cx, cy + 65);
+      ctx.bezierCurveTo(cx - 20, cy + 80, cx - 65, cy + 75, cx - 75, cy + 35);
+      ctx.bezierCurveTo(cx - 85, cy - 10, cx - 50, cy - 65, cx, cy - 45);
 
-      const appleGrad = ctx.createRadialGradient(cx - 20, cy - 15, 10, cx, cy, 75);
+      const appleGrad = ctx.createRadialGradient(cx - 25, cy - 20, 10, cx, cy, 85);
       appleGrad.addColorStop(0, '#ff4d4d');
-      appleGrad.addColorStop(0.6, '#dc2626');
-      appleGrad.addColorStop(1, '#7f1d1d');
+      appleGrad.addColorStop(0.5, '#dc2626');
+      appleGrad.addColorStop(0.85, '#991b1b');
+      appleGrad.addColorStop(1, '#450a0a');
       ctx.fillStyle = appleGrad;
       ctx.fill();
 
-      // Glossy Highlights
+      // Real Glossy Light Reflections
       ctx.beginPath();
-      ctx.ellipse(cx - 32, cy - 20, 15, 30, Math.PI / 6, 0, Math.PI * 2);
+      ctx.ellipse(cx - 35, cy - 20, 16, 35, Math.PI / 5, 0, Math.PI * 2);
       ctx.fillStyle = 'rgba(255, 255, 255, 0.45)';
       ctx.fill();
 
       ctx.beginPath();
-      ctx.arc(cx - 20, cy - 35, 5, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
+      ctx.arc(cx - 22, cy - 40, 6, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.65)';
       ctx.fill();
 
-      // Small Eaten Piece of Apple
+      // Small Bite Mark Piece Eaten by Ant
       ctx.beginPath();
-      ctx.arc(cx + 50, cy + 45, 12, 0, Math.PI * 2);
+      ctx.arc(cx + 55, cy + 50, 14, 0, Math.PI * 2);
       ctx.fillStyle = '#fef08a';
       ctx.fill();
-      ctx.strokeStyle = '#eab308';
-      ctx.lineWidth = 1;
+      ctx.strokeStyle = '#ca8a04';
+      ctx.lineWidth = 1.5;
       ctx.stroke();
 
       ctx.restore();
     }
 
-    // Draw Live Ant (Crawling & Eating)
-    function drawAnt(x, y) {
+    // Crawling Animated Ant
+    function drawCrawlingAnt(x, y) {
       ctx.save();
       ctx.translate(x, y);
 
-      antLegAngle += 0.15;
-      let legOffset = Math.sin(antLegAngle) * 4;
+      antLegAngle += 0.2;
+      let legOffset = Math.sin(antLegAngle) * 5;
 
       // Antennae
-      ctx.strokeStyle = '#1e293b';
-      ctx.lineWidth = 1.5;
+      ctx.strokeStyle = '#0f172a';
+      ctx.lineWidth = 2;
       ctx.beginPath();
-      ctx.moveTo(-12, -4); ctx.quadraticCurveTo(-18, -12, -22, -10);
-      ctx.moveTo(-12, 4);  ctx.quadraticCurveTo(-18, 12, -22, 10);
+      ctx.moveTo(-14, -4); ctx.quadraticCurveTo(-20, -14, -25, -12);
+      ctx.moveTo(-14, 4);  ctx.quadraticCurveTo(-20, 14, -25, 12);
       ctx.stroke();
 
-      // Moving Legs
+      // 6 Legs
       ctx.beginPath();
-      // Left Legs
-      ctx.moveTo(0, -2); ctx.lineTo(-4 + legOffset, -12);
-      ctx.moveTo(4, -2);  ctx.lineTo(4 - legOffset, -12);
-      ctx.moveTo(8, -2);  ctx.lineTo(12 + legOffset, -12);
-      // Right Legs
-      ctx.moveTo(0, 2);  ctx.lineTo(-4 - legOffset, 12);
-      ctx.moveTo(4, 2);   ctx.lineTo(4 + legOffset, 12);
-      ctx.moveTo(8, 2);   ctx.lineTo(12 - legOffset, 12);
+      ctx.moveTo(0, -2); ctx.lineTo(-5 + legOffset, -14);
+      ctx.moveTo(4, -2);  ctx.lineTo(4 - legOffset, -14);
+      ctx.moveTo(8, -2);  ctx.lineTo(13 + legOffset, -14);
+      
+      ctx.moveTo(0, 2);  ctx.lineTo(-5 - legOffset, 14);
+      ctx.moveTo(4, 2);   ctx.lineTo(4 + legOffset, 14);
+      ctx.moveTo(8, 2);   ctx.lineTo(13 - legOffset, 14);
       ctx.stroke();
 
-      // Ant Body (3 Segments: Head, Thorax, Abdomen)
+      // Ant Body Segments
       // Head
       ctx.beginPath();
-      ctx.ellipse(-10, 0, 5, 4, 0, 0, Math.PI * 2);
+      ctx.ellipse(-12, 0, 6, 5, 0, 0, Math.PI * 2);
       ctx.fillStyle = '#334155'; ctx.fill();
 
       // Eye
       ctx.beginPath();
-      ctx.arc(-11, -2, 1, 0, Math.PI * 2);
+      ctx.arc(-14, -2, 1.5, 0, Math.PI * 2);
       ctx.fillStyle = '#ffffff'; ctx.fill();
 
       // Thorax
       ctx.beginPath();
-      ctx.ellipse(0, 0, 6, 4, 0, 0, Math.PI * 2);
+      ctx.ellipse(0, 0, 7, 5, 0, 0, Math.PI * 2);
       ctx.fillStyle = '#1e293b'; ctx.fill();
 
       // Abdomen
       ctx.beginPath();
-      ctx.ellipse(12, 0, 9, 6, 0, 0, Math.PI * 2);
+      ctx.ellipse(14, 0, 11, 7, 0, 0, Math.PI * 2);
       ctx.fillStyle = '#0f172a'; ctx.fill();
 
-      // Tiny apple piece in ant's mouth
+      // Apple piece in ant mouth
       ctx.beginPath();
-      ctx.arc(-16, 0, 3, 0, Math.PI * 2);
+      ctx.arc(-18, 0, 4, 0, Math.PI * 2);
       ctx.fillStyle = '#fef08a'; ctx.fill();
 
       ctx.restore();
     }
 
-    // Pencil Icon Drawing
+    // Draw Tracing Pencil
     function drawPencil(x, y) {
       ctx.save();
       ctx.translate(x, y);
@@ -345,17 +364,17 @@
       ctx.restore();
     }
 
-    // Main Render Loop
+    // Main Canvas Render Loop
     function render() {
       ctx.clearRect(0, 0, w, h);
 
-      // 1. Draw 4-Line English Notebook Background
+      // 1. Draw 4-Line Notebook Lines
       for (let r = 0; r < 2; r++) {
         for (let i = 0; i < 4; i++) {
           let y = getLineY(r, i);
           ctx.beginPath();
           ctx.moveTo(20, y);
-          ctx.lineTo(w - 240, y);
+          ctx.lineTo(w - 250, y);
           ctx.strokeStyle = (i === 0 || i === 3) ? '#ef4444' : '#3b82f6';
           ctx.lineWidth = 1.5;
           if (i === 1 || i === 2) ctx.setLineDash([5, 5]);
@@ -365,36 +384,29 @@
         }
       }
 
-      // 2. Faint Template Guide Text
+      // 2. Faint Tracing Background Guide
       ctx.fillStyle = '#f1f5f9';
-      ctx.font = '900 75px sans-serif';
-      ctx.fillText('A', 45, getLineY(0, 2) - 2);
-      ctx.font = '900 48px sans-serif';
+      ctx.font = '900 80px sans-serif';
+      ctx.fillText('A', 40, getLineY(0, 2) - 2);
+      ctx.font = '900 52px sans-serif';
       ctx.fillText('a', 63, getLineY(1, 2) - 2);
 
-      // 3. Draw Animated Tracing Pencil Strokes
-      if (tCapA < 1) tCapA += 0.006;
+      // 3. Automated Pencil Tracing Strokes
+      if (tCapA < 1) tCapA += 0.005;
       drawPencilStroke(getCapAPoint, tCapA, '#0284c7');
 
-      if (tSmallA < 1) tSmallA += 0.007;
+      if (tSmallA < 1) tSmallA += 0.006;
       drawPencilStroke(getSmallAPoint, tSmallA, '#dc2626');
 
-      // 4. Draw Real 3D Apple & Crawling Ant
-      const appleX = w - 120;
-      const appleY = 120;
-      drawRealisticApple(appleX, appleY);
-      drawAnt(appleX - 45, appleY + 70);
+      // 4. Ultra-Realistic Apple & Crawling Ant
+      const appleX = w - 130;
+      const appleY = 130;
+      drawUltraRealisticApple(appleX, appleY);
+      drawCrawlingAnt(appleX - 50, appleY + 75);
 
-      // Ant Label Caption
-      ctx.fillStyle = '#78350f';
-      ctx.font = 'bold 14px "Comic Sans MS", cursive, sans-serif';
-      ctx.textAlign = 'center';
-      ctx.fillText('🐜 चींटी की बच्ची सेब खा रही है!', appleX, appleY + 120);
-      ctx.textAlign = 'left';
-
-      // 5. Draw User Practice Tracing Lines
+      // 5. User Tracing & Practice Lines (Fully Enabled!)
       ctx.strokeStyle = '#16a34a';
-      ctx.lineWidth = 5;
+      ctx.lineWidth = 6;
       ctx.lineCap = 'round';
       ctx.lineJoin = 'round';
       userPaths.forEach(path => {
@@ -428,38 +440,53 @@
       }
     }
 
-    // Sequence Story Function
-    function startAnimation() {
+    // Storyteller Ant Animation & Audio Loop
+    function startAntStory() {
       tCapA = 0;
       tSmallA = 0;
-      speakText("हेलो दोस्तों! यह है Capital A और Small a!", () => {
-        speakText("A for Apple! Apple का मतलब सेब!", () => {
-          speakText("अरे वाह! यह सेब तो बहुत मीठा है! 🍎", () => {
-            speakText("और देखो, नीचे चींटी की बच्ची भी मजे से सेब खा रही है! 🐜");
+      speakAntVoice("हेलो बच्चों! मैं छोटी चींटी हूँ! देखो, यह है Capital A और Small a!", () => {
+        speakAntVoice("A for Apple! Apple का मतलब होता है सेब!", () => {
+          speakAntVoice("यम्मी! यह सेब बहुत मीठा है!", () => {
+            speakAntVoice("और देखो, मैं चींटी की बच्ची भी मजे से सेब खा रही हूँ! 🐜🍎");
           });
         });
       });
     }
 
-    // User Interactive Practice Drawing
-    canvas.addEventListener('mousedown', (e) => {
+    // --- FULL USER DRAWING & TRACING SYSTEM (MOUSE + TOUCH) ---
+    function getEventPos(e) {
+      let rect = canvas.getBoundingClientRect();
+      let clientX = e.clientX || (e.touches && e.touches[0].clientX);
+      let clientY = e.clientY || (e.touches && e.touches[0].clientY);
+      return { x: clientX - rect.left, y: clientY - rect.top };
+    }
+
+    function startDrawing(e) {
       isDrawing = true;
-      let rect = canvas.getBoundingClientRect();
-      currentPath = [{ x: e.clientX - rect.left, y: e.clientY - rect.top }];
+      currentPath = [getEventPos(e)];
       userPaths.push(currentPath);
-    });
+    }
 
-    canvas.addEventListener('mousemove', (e) => {
+    function drawMove(e) {
       if (!isDrawing) return;
-      let rect = canvas.getBoundingClientRect();
-      currentPath.push({ x: e.clientX - rect.left, y: e.clientY - rect.top });
-    });
+      currentPath.push(getEventPos(e));
+    }
 
-    canvas.addEventListener('mouseup', () => isDrawing = false);
+    function stopDrawing() { isDrawing = false; }
+
+    // Mouse Events
+    canvas.addEventListener('mousedown', startDrawing);
+    canvas.addEventListener('mousemove', drawMove);
+    canvas.addEventListener('mouseup', stopDrawing);
+
+    // Touch Events (Mobile Support)
+    canvas.addEventListener('touchstart', (e) => { e.preventDefault(); startDrawing(e); });
+    canvas.addEventListener('touchmove', (e) => { e.preventDefault(); drawMove(e); });
+    canvas.addEventListener('touchend', stopDrawing);
 
     function clearUserDrawings() { userPaths = []; }
 
-    // Start Engine
+    // Launch Animation
     render();
   </script>
 </body>
