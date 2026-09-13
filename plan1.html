@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>बाल विकास - A and a Practice Worksheet | IOIS PLATFORM</title>
+  <title>बाल विकास - Live Animated A & a Practice | IOIS PLATFORM</title>
   <style>
     * {
       box-sizing: border-box;
@@ -26,7 +26,7 @@
       width: 100%;
       max-width: 580px;
       background: #ffffff;
-      border-radius: 16px;
+      border-radius: 20px;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
       border: 3px solid #3b82f6;
       overflow: hidden;
@@ -55,7 +55,7 @@
       margin-top: 2px;
     }
 
-    /* Showcase Top Area (Matching Image Look) */
+    /* Showcase Top Area */
     .showcase-top {
       background: linear-gradient(180deg, #e0f2fe 0%, #ffffff 100%);
       padding: 15px;
@@ -68,26 +68,25 @@
       background: #ffffff;
       border: 3px solid #3b82f6;
       border-radius: 16px;
-      width: 90px;
-      height: 90px;
+      width: 85px;
+      height: 85px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 65px;
+      font-size: 60px;
       font-weight: 900;
       color: #2563eb;
       box-shadow: 0 6px 12px rgba(37, 99, 235, 0.15);
-      position: relative;
     }
 
-    /* Step-by-Step Writing Guide Section */
+    /* Animated Guidance Section */
     .guide-banner {
       background: #fffbe2;
       border-top: 1px solid #fde047;
       border-bottom: 1px solid #fde047;
       padding: 8px;
       text-align: center;
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 800;
       color: #854d0e;
     }
@@ -102,11 +101,12 @@
     .instruct-box {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
       background: #ffffff;
-      padding: 6px 12px;
-      border-radius: 10px;
-      border: 1px solid #fef08a;
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 2px solid #fef08a;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
     }
 
     .instruct-text {
@@ -116,12 +116,47 @@
       text-align: left;
     }
 
-    /* Illustrations Section (Apple & Ant) */
+    /* SVG Writing Animation (Real Drawing Effect) */
+    @keyframes drawCapitalA {
+      0% { stroke-dashoffset: 400; }
+      70% { stroke-dashoffset: 0; }
+      100% { stroke-dashoffset: 0; }
+    }
+
+    @keyframes drawSmallA {
+      0% { stroke-dashoffset: 350; }
+      70% { stroke-dashoffset: 0; }
+      100% { stroke-dashoffset: 0; }
+    }
+
+    @keyframes pulseStartPin {
+      0%, 100% { transform: scale(1); opacity: 0.8; }
+      50% { transform: scale(1.4); opacity: 1; }
+    }
+
+    .path-cap-a {
+      stroke-dasharray: 400;
+      stroke-dashoffset: 400;
+      animation: drawCapitalA 3.5s ease-in-out infinite;
+    }
+
+    .path-small-a {
+      stroke-dasharray: 350;
+      stroke-dashoffset: 350;
+      animation: drawSmallA 3.5s ease-in-out infinite;
+    }
+
+    .start-pin {
+      animation: pulseStartPin 1.2s infinite;
+      transform-origin: center;
+    }
+
+    /* Realistic Apple & Alive Ant Showcase */
     .illustrations-grid {
       display: flex;
       justify-content: space-around;
       align-items: center;
-      padding: 10px;
+      padding: 15px 10px;
       background: #fafafa;
     }
 
@@ -129,20 +164,37 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 4px;
+      gap: 6px;
     }
 
     .item-card img {
-      width: 90px;
-      height: 90px;
+      width: 100px;
+      height: 100px;
       object-fit: contain;
-      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+      filter: drop-shadow(0 6px 12px rgba(0,0,0,0.15));
+      transition: transform 0.3s ease;
+    }
+
+    .item-card img:hover {
+      transform: scale(1.05);
     }
 
     .item-label {
       font-size: 15px;
       font-weight: 800;
       color: #dc2626;
+    }
+
+    /* Ant Movement Animation */
+    @keyframes antWiggle {
+      0%, 100% { transform: rotate(0deg); }
+      25% { transform: rotate(-3deg); }
+      75% { transform: rotate(3deg); }
+    }
+
+    .alive-ant {
+      animation: antWiggle 1s infinite ease-in-out;
+      cursor: pointer;
     }
 
     /* English 4-Line Notebook Tracing Section */
@@ -156,7 +208,7 @@
       width: 100%;
       height: 220px;
       border: 2px solid #cbd5e1;
-      border-radius: 10px;
+      border-radius: 12px;
       background-color: #ffffff;
       touch-action: none;
       overflow: hidden;
@@ -274,46 +326,83 @@
       <div class="letter-badge" style="color: #0284c7; border-color: #0284c7;">a</div>
     </div>
 
-    <!-- Writing Steps Guidance -->
-    <div class="guide-banner">✍️ लिखने का तरीका (How to write Capital A and Small a):</div>
+    <!-- Animated Writing Guidance (SVG Writing Stroke Animation) -->
+    <div class="guide-banner">🎬 लाइव एनिमेशन: देखें अक्षर कैसे लिखा जाता है!</div>
     <div class="writing-instructions">
+      
+      <!-- Real Animated Capital A -->
       <div class="instruct-box">
-        <svg width="35" height="35" viewBox="0 0 100 100">
-          <text x="20" y="80" font-size="75" font-weight="bold" fill="#2563eb">A</text>
-          <path d="M 25 75 L 45 20" stroke="#ef4444" stroke-width="4" marker-end="url(#arrow)" />
-          <path d="M 45 20 L 70 75" stroke="#ef4444" stroke-width="4" />
-          <path d="M 32 50 L 60 50" stroke="#ef4444" stroke-width="4" />
+        <svg width="70" height="70" viewBox="0 0 100 100">
+          <!-- Guide Trace Line (Faint Gray) -->
+          <path d="M 20 80 L 50 15 L 80 80 M 32 55 L 68 55" stroke="#cbd5e1" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          
+          <!-- Animated Writing Path -->
+          <path class="path-cap-a" d="M 20 80 L 50 15 L 80 80 M 32 55 L 68 55" stroke="#2563eb" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          
+          <!-- Start Indicator Pin -->
+          <circle cx="20" cy="80" r="6" fill="#ef4444" class="start-pin" />
         </svg>
-        <div class="instruct-text"><b>Big A:</b><br>1. ↙️ तिरछी लाइन<br>2. ↘️ तिरछी लाइन<br>3. ➡️ बीच की लाइन</div>
+        <div class="instruct-text">
+          <b>Capital A:</b><br>
+          1. ↗️ बाएँ से ऊपर<br>
+          2. ↘️ ऊपर से दाएँ<br>
+          3. ➡️ बीच की रेखा
+        </div>
       </div>
 
+      <!-- Real Animated Small a -->
       <div class="instruct-box">
-        <svg width="35" height="35" viewBox="0 0 100 100">
-          <text x="25" y="80" font-size="75" font-weight="bold" fill="#0284c7">a</text>
-          <circle cx="50" cy="55" r="20" fill="none" stroke="#ef4444" stroke-width="4" />
-          <path d="M 70 35 L 70 75" stroke="#ef4444" stroke-width="4" />
+        <svg width="70" height="70" viewBox="0 0 100 100">
+          <!-- Guide Trace Line (Faint Gray) -->
+          <path d="M 70 35 C 30 30 20 75 60 75 C 75 75 75 55 70 35 M 70 35 L 70 80" stroke="#cbd5e1" stroke-width="8" stroke-linecap="round" fill="none"/>
+          
+          <!-- Animated Writing Path -->
+          <path class="path-small-a" d="M 70 35 C 30 30 20 75 60 75 C 75 75 75 55 70 35 M 70 35 L 70 80" stroke="#0284c7" stroke-width="8" stroke-linecap="round" fill="none"/>
+          
+          <!-- Start Indicator Pin -->
+          <circle cx="70" cy="35" r="6" fill="#ef4444" class="start-pin" />
         </svg>
-        <div class="instruct-text"><b>Small a:</b><br>1. ⭕ छोटा गोला बनाएं<br>2. ⬇️ सीधी छोटी लाइन</div>
+        <div class="instruct-text">
+          <b>Small a:</b><br>
+          1. 🔄 गोल घुमाएँ<br>
+          2. ⬇️ सीधी छोटी लाइन
+        </div>
       </div>
+
     </div>
 
-    <!-- Illustrations (Apple & Ant) -->
+    <!-- Realistic Apple & Animated Ant -->
     <div class="illustrations-grid">
       <div class="item-card">
-        <img src="https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?w=200&auto=format&fit=crop&q=80" alt="Apple">
+        <!-- HD Real Photo Apple -->
+        <img src="https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?w=300&auto=format&fit=crop&q=80" alt="Real Apple">
         <div class="item-label">A for apple</div>
       </div>
+      
       <div class="item-card">
-        <!-- High-Quality Realistic Ant Vector/PNG -->
-        <svg width="80" height="80" viewBox="0 0 100 100">
-          <ellipse cx="30" cy="60" rx="15" ry="10" fill="#78350f" />
-          <ellipse cx="50" cy="55" rx="10" ry="8" fill="#92400e" />
-          <circle cx="68" cy="48" r="9" fill="#b45309" />
-          <circle cx="71" cy="45" r="2" fill="#ffffff" />
-          <path d="M 50 55 Q 40 75 30 80 M 50 55 Q 55 75 50 80 M 50 55 Q 65 75 70 80" stroke="#78350f" stroke-width="3" fill="none" />
-          <path d="M 70 42 Q 78 30 85 28 M 70 42 Q 75 28 80 22" stroke="#78350f" stroke-width="2" fill="none" />
-        </svg>
-        <div class="item-label" style="color: #b45309;">A for ant</div>
+        <!-- Animated Realistic SVG Ant -->
+        <div class="alive-ant">
+          <svg width="95" height="95" viewBox="0 0 100 100">
+            <!-- Legs -->
+            <path d="M 45 50 Q 30 30 20 35 M 48 55 Q 30 60 22 70 M 50 60 Q 35 80 30 90" stroke="#451a03" stroke-width="3" stroke-linecap="round" fill="none"/>
+            <path d="M 55 50 Q 70 30 80 35 M 52 55 Q 70 60 78 70 M 50 60 Q 65 80 70 90" stroke="#451a03" stroke-width="3" stroke-linecap="round" fill="none"/>
+            <!-- Abdomen -->
+            <ellipse cx="50" cy="72" rx="16" ry="20" fill="#78350f" />
+            <ellipse cx="50" cy="74" rx="12" ry="16" fill="#92400e" />
+            <!-- Thorax -->
+            <ellipse cx="50" cy="48" rx="9" ry="11" fill="#451a03" />
+            <!-- Head -->
+            <circle cx="50" cy="30" r="11" fill="#78350f" />
+            <!-- Eyes -->
+            <circle cx="45" cy="26" r="2.5" fill="#ffffff" />
+            <circle cx="55" cy="26" r="2.5" fill="#ffffff" />
+            <circle cx="45" cy="26" r="1" fill="#000000" />
+            <circle cx="55" cy="26" r="1" fill="#000000" />
+            <!-- Antennae -->
+            <path d="M 46 20 Q 38 8 28 10 M 54 20 Q 62 8 72 10" stroke="#451a03" stroke-width="2" stroke-linecap="round" fill="none"/>
+          </svg>
+        </div>
+        <div class="item-label" style="color: #78350f;">A for ant</div>
       </div>
     </div>
 
